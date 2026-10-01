@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   creator: "Ranier Teraldico",
   applicationName: "Kwenta",
   manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [{ url: "/icon.ico", type: "image/x-icon" }],
+    shortcut: "/icon.ico",
+  },
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
