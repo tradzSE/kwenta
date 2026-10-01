@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kwenta
 
-## Getting Started
+Kwenta is a mobile-first GWA calculator for Filipino students. It supports university-specific grading presets, academic-standing estimates, saved semesters, CSV export, and a custom weighted-average calculator.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+npm run lint
+npm run build
+```
 
-## Learn More
+## University data
 
-To learn more about Next.js, take a look at the following resources:
+University presets live in `data/universities`. Each preset defines its grade scale, calculation behavior, branding, policy source, and verification date. Add new presets to `data/universities/registry.ts` and include a corresponding logo in `public/universities`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Academic-standing results are estimates only. Students should confirm eligibility and official calculations with their university.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The production domain is `https://kwenta.ranierteraldico.me`. The app includes metadata, Open Graph tags, a sitemap, robots rules, a web app manifest, security headers, and cache policies for static brand assets.

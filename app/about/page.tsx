@@ -1,0 +1,3 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "About", description: "About Kwenta, the free GWA calculator for Filipino students." };
+export default function AboutPage() { return <article className="text-page prose-page"><p className="kicker">About</p><h1>A clearer grade calculator for students.</h1><p>Kwenta is an independent student tool built by software engineer Ranier Teraldico. It turns university grading policies into transparent, mobile-friendly calculators.</p><p>The project is not affiliated with Central Luzon State University or any other listed institution.</p></article>; }

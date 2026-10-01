@@ -1,26 +1,323 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink:#15261b; --muted:#5e6c62; --paper:#f5f4ed; --card:#fffef9;
+  --green:#184e35; --green-2:#2e7552; --lime:#dce99b; --line:#cfd6c9;
+  --radius:6px; --mono:var(--font-geist-mono); --sans:var(--font-geist);
+}
+* { box-sizing:border-box; }
+html { background:var(--paper); scroll-behavior:smooth; }
+body { min-width:320px; margin:0; color:var(--ink); background:var(--paper); font-family:var(--sans),Arial,sans-serif; line-height:1.5; }
+a { color:inherit; }
+button,input,select { font:inherit; }
+button,a,select { touch-action:manipulation; }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { outline:3px solid #e6a900; outline-offset:2px; }
+.kicker { margin:0 0 12px;color:var(--green-2);font:700 12px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase; }
+
+/* Header + footer */
+.site-header { max-width:1040px; min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:24px; margin:auto; padding:8px 20px; border-bottom:1px solid var(--line); }
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.brand-logo { width:auto; height:44px; object-fit:contain; }
+.brand b { font-size:17px; letter-spacing:-.02em; color:var(--green); }
+.site-header nav,.site-footer nav { display:flex; gap:24px; }
+.site-header nav a,.site-footer a { color:var(--muted); font-size:13px; text-decoration:none; }
+.site-header nav a:hover,.site-footer a:hover { color:var(--green); text-decoration:underline; }
+.nav-toggle { display:none; }
+.site-footer { max-width:1040px; min-height:64px; display:flex; align-items:center; justify-content:space-between; gap:16px; margin:auto; padding:18px 20px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+#main-content { min-height:calc(100dvh - 130px); }
+/* Home page */
+.home-page { max-width:720px; margin:0 auto; padding:72px 20px 88px; }
+.home-intro h1 { margin:0; color:var(--ink); font-size:clamp(38px,7vw,56px); line-height:1.04; letter-spacing:-.04em; }
+.home-intro>p { max-width:590px; margin:16px 0 0; color:var(--muted); font-size:17px; line-height:1.6; }
+.home-intro .school-select { max-width:none; margin-top:28px; }
+.home-intro .privacy-note { margin-top:10px; color:var(--muted); font-size:12px; }
+.supported-universities { margin-top:48px; }
+.supported-universities h2 { margin:0 0 16px; font-size:20px; letter-spacing:-.02em; }
+
+/* Running logo marquee with school-name hover tooltip */
+.logo-marquee { overflow:hidden; padding:18px 0; border-bottom:1px solid var(--line); mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent); }
+.logo-track { width:max-content; display:flex; align-items:center; animation:university-marquee 24s linear infinite; }
+.logo-track-group { display:flex; align-items:center; gap:42px; padding-right:42px; }
+.logo-track-group>a,.logo-track-copy>span { position:relative; width:82px; height:82px; display:grid; place-items:start center; flex:none; padding-top:4px; background:transparent; }
+.logo-track-group>a { text-decoration:none; }
+.logo-track .university-logo { width:58px; height:58px; transition:transform 140ms ease; }
+.logo-track-group>a::after,.logo-track-copy>span::after { content:attr(data-university); position:absolute; left:50%; bottom:0; z-index:2; width:max-content; max-width:190px; padding:3px 6px; transform:translate(-50%,4px); background:var(--green); color:#fff; font-size:10px; font-weight:700; line-height:1.2; text-align:center; opacity:0; pointer-events:none; transition:opacity 120ms ease,transform 120ms ease; }
+.logo-track-group>a:hover .university-logo,.logo-track-group>a:focus-visible .university-logo,.logo-track-copy>span:hover .university-logo { transform:translateY(-3px) scale(1.08); }
+.logo-track-group>a:hover::after,.logo-track-group>a:focus-visible::after,.logo-track-copy>span:hover::after { transform:translate(-50%,0); opacity:1; }
+.logo-track-copy { display:flex; align-items:center; gap:42px; }
+.logo-marquee:hover .logo-track,.logo-marquee:focus-within .logo-track { animation-play-state:paused; }
+@keyframes university-marquee { to { transform:translateX(-50%); } }
+@media(max-width:640px){
+  .logo-track { animation-duration:20s; }
+  .logo-track-group { gap:28px; padding-right:28px; }
+  .logo-track-group>a,.logo-track-copy>span { width:58px; height:58px; }
+  .logo-track .university-logo { width:50px; height:50px; }
+}
+@media(prefers-reduced-motion:reduce){
+  .logo-marquee { overflow:visible; mask-image:none; }
+  .logo-track { width:auto; animation:none; }
+  .logo-track-group { flex-wrap:wrap; gap:18px; padding-right:0; }
+  .logo-track-copy { display:none; }
+}
+.custom-calculator-callout { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px; padding:14px 16px; border:1px dashed var(--green-2); border-radius:var(--radius); background:#eef3ea; }
+@media(max-width:560px){ .custom-calculator-callout { align-items:flex-start; flex-direction:column; } .custom-calculator-link { width:100%; text-align:center; } }
+@media(max-width:640px){
+  .brand-logo { height:36px; }
+}
+.custom-calculator-callout span { display:grid; gap:2px; }
+.custom-calculator-callout strong { font-size:14px; }
+.custom-calculator-callout small { color:var(--muted); font-size:12px; }
+.custom-calculator-link { flex:none; padding:10px 14px; border-radius:var(--radius); background:var(--green); color:#fff !important; font-size:13px; font-weight:700; text-decoration:none; }
+
+/* Calculator pages */
+.calculator-hero { max-width:1184px;margin:auto;padding:56px 28px 36px; }
+.calculator-hero h1 { margin:0;color:var(--ink);font-size:clamp(32px,5vw,52px);line-height:1.06;letter-spacing:-.03em; }
+.calculator-hero>p { max-width:620px;margin:14px 0 0;color:var(--muted);font-size:16px;line-height:1.6; }
+.verification { display:flex;flex-wrap:wrap;gap:8px;margin-top:20px; }.verification span { padding:7px 10px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);font:11px var(--mono); }
+.calculator-shell { max-width:1184px;display:grid;grid-template-columns:minmax(0,1fr) 310px;align-items:start;gap:24px;margin:0 auto;padding:0 28px 80px; }
+.worksheet,.result-card,.term-history { border:1px solid var(--line);border-radius:var(--radius);background:var(--card); }
+.worksheet { padding:24px; }
+.worksheet-title { margin:0 0 4px;font-size:18px;letter-spacing:-.01em; }
+.worksheet-sub { margin:0 0 16px;color:var(--muted);font-size:13px; }
+.text-button { border:0;color:var(--muted);background:transparent;font-size:12px;text-decoration:underline;cursor:pointer; }
+.subject-table { display:grid;gap:8px; }
+.subject-header,.subject-row { display:grid;grid-template-columns:minmax(160px,1fr) 190px 100px 38px;gap:8px;align-items:center; }
+.subject-header { padding:0 4px;color:var(--muted);font:700 11px/1.4 var(--sans); }
+.subject-row { border:1px solid var(--line);border-radius:var(--radius);background:#fff; }
+.subject-row label { min-width:0; }
+.subject-row input,.subject-row select { width:100%;height:44px;padding:0 11px;border:0;border-radius:var(--radius);background:transparent; }
+.remove-button { width:38px;height:38px;border:1px solid transparent;border-radius:var(--radius);color:#8e322e;background:transparent;font-size:20px;cursor:pointer; }
+.remove-button:hover { border-color:#d9b8b5;background:#fff1ef; }
+.mobile-label { display:none; }
+.worksheet-actions { display:flex;align-items:center;gap:16px;margin-top:16px; }
+.add-button { padding:11px 18px; border:1px solid var(--green); border-radius:var(--radius); color:#fff; background:var(--green); font-size:14px; font-weight:700; line-height:1.3; white-space:nowrap; cursor:pointer; }
+.add-button:hover { background:var(--green-2);border-color:var(--green-2); }
+/* Dead green-card result variant (superseded by Quiet result summary) — selectors renamed so they no longer match. */
+.result-card--legacy { position:sticky;top:20px;padding:28px;color:#fff;background:var(--green);border-color:var(--green); }.result-card--legacy>strong { display:block;margin:16px 0 4px;font-size:76px;line-height:1;letter-spacing:-.07em; }.result-card--legacy>p { margin:0;color:#cfddd3;font-size:12px; }.result-card--legacy .result-blocked { font-size:48px; }.scholarship-note,.formula { margin-top:28px;padding-top:20px;border-top:1px solid #507561; }.scholarship-note span,.scholarship-note b,.scholarship-note small,.formula span,.formula code { display:block; }.scholarship-note span,.formula span { color:#bfd1c5;font:10px var(--mono);text-transform:uppercase; }.scholarship-note b { margin:7px 0;font-size:15px; }.scholarship-note small { color:#cfddd3; }.formula code { margin-top:8px;color:var(--lime);font-size:11px; }
+.standing-row { display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #507561; }.standing-row b { margin:0;font-size:12px; }.standing-row em { padding:3px 6px;border-radius:2px;font:700 10px var(--mono);font-style:normal;text-transform:uppercase; }.standing-row .qualified { color:var(--green);background:var(--lime); }.standing-row .not-qualified { color:#bfd1c5;background:#315e46; }.scholarship-note .standing-row+small,.scholarship-note .standing-row~small { margin-top:10px;line-height:1.45; }
+.policy-section { max-width:1184px;display:grid;grid-template-columns:1fr 360px;gap:70px;margin:0 auto 90px;padding:60px 28px;border-top:1px solid var(--line); }.policy-section h2 { margin:0;font-size:38px;letter-spacing:-.04em; }.policy-section p { color:var(--muted);line-height:1.65; }.policy-card { padding:24px;border:1px solid var(--line);background:var(--card); }.policy-card h3{margin-top:0}.policy-card a{display:inline-block;margin-top:12px;color:var(--green);font-weight:700;font-size:13px}
+.text-page { max-width:980px;margin:auto;padding:80px 28px 110px; }.prose-page { max-width:780px; }.prose-page h2 { margin:48px 0 10px;font-size:27px; }.prose-page p { color:var(--muted);font-size:16px;line-height:1.75; }.prose-page pre { overflow:auto;padding:20px;border-left:4px solid var(--green);background:#e8eadf;font:14px var(--mono); }
+
+/* Universities directory: logo cards instead of bare text rows */
+.universities-page>p a { color:var(--green); font-weight:700; }
+.universities-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:32px 0 0; padding:0; list-style:none; }
+.universities-grid a { display:flex; align-items:center; gap:12px; padding:14px; border:1px solid var(--line); border-radius:var(--radius); background:var(--card); text-decoration:none; }
+.universities-grid a:hover { border-color:var(--green); }
+.universities-grid a>span { display:grid; gap:2px; min-width:0; flex:1; }
+.universities-grid strong { font-size:14px; }
+.universities-grid small { color:var(--muted); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.universities-grid b { color:var(--green); font-size:14px; }
+@media(max-width:640px){ .universities-grid { grid-template-columns:1fr; } }
+.university-list { display:grid;margin-top:55px;border-top:1px solid var(--line); }.university-list a { display:grid;grid-template-columns:100px 1fr auto;align-items:center;gap:20px;padding:25px 6px;border-bottom:1px solid var(--line);text-decoration:none; }.university-list a:hover { background:#edeee7; }.university-list span { font:700 12px var(--mono); }.university-list h2 { margin:0 0 5px;font-size:20px; }.university-list p { margin:0;color:var(--muted);font-size:13px; }
+.site-footer { max-width:1240px;min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin:auto;padding:20px 28px;border-top:1px solid var(--line);color:var(--muted);font-size:12px; }
+
+/* Friendly 404 */
+.not-found-page { max-width:720px; margin:0 auto; padding:72px 20px 88px; display:grid; gap:40px; }
+.not-found-hero h1 { margin:0; font-size:clamp(32px,6vw,48px); line-height:1.06; letter-spacing:-.03em; }
+.not-found-hero>p { max-width:560px; margin:14px 0 0; color:var(--muted); font-size:16px; line-height:1.6; }
+.not-found-hero .school-select { margin-top:24px; }
+.not-found-popular h2 { margin:0 0 12px; font-size:16px; }
+.not-found-popular ul { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0; padding:0; list-style:none; }
+.not-found-popular a { display:flex; align-items:center; gap:12px; padding:12px; border:1px solid var(--line); border-radius:var(--radius); background:var(--card); text-decoration:none; }
+.not-found-popular a:hover { border-color:var(--green); }
+.not-found-popular a>span { display:grid; gap:2px; min-width:0; }
+.not-found-popular strong { font-size:14px; }
+.not-found-popular small { color:var(--muted); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.not-found-actions { display:flex; flex-wrap:wrap; gap:10px; }
+.not-found-button { padding:10px 16px; border:1px solid var(--line); border-radius:var(--radius); background:var(--card); font-size:13px; font-weight:700; text-decoration:none; }
+.not-found-button:hover { border-color:var(--green); }
+.not-found-button.primary { border-color:var(--green); background:var(--green); color:#fff; }
+@media(max-width:560px){ .not-found-page{padding:48px 18px 64px} .not-found-popular ul{grid-template-columns:1fr} .not-found-button{flex:1;text-align:center} }
+.worksheet-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:16px; flex-wrap:wrap; }
+.worksheet-actions .add-button { margin-top:0; }
+.worksheet-actions .text-button { padding:11px 4px; font-size:13px; white-space:nowrap; }
+.term-history { grid-column:1/-1;padding:24px;border:1px solid var(--line);background:var(--card); }
+.save-term-row { display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:16px; }.save-term-row label { display:grid;gap:7px;font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.06em; }.save-term-row input { min-height:44px;padding:0 11px;border:1px solid var(--line);background:#fff;color:var(--ink); }.save-term-row .add-button { margin:0;min-height:44px; }.add-button:disabled { cursor:not-allowed;opacity:.45; }
+.history-list { display:grid;gap:4px;margin-top:24px; }.history-row,.cumulative-result { display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:16px;padding:13px 4px;border-top:1px solid var(--line); }.history-row div { display:grid;gap:3px; }.history-row span { color:var(--muted);font-size:12px; }.cumulative-result { grid-template-columns:minmax(0,1fr) auto;padding:16px;border:0;background:var(--green);color:#fff; }.cumulative-result strong { font:700 24px var(--mono); }
+@media(max-width:760px){.site-header{align-items:flex-start}.site-header nav{gap:12px;flex-wrap:wrap;justify-content:flex-end}.site-header nav a{font-size:11px}.calculator-shell,.policy-section{grid-template-columns:1fr}.calculator-shell{padding-inline:14px}.calculator-hero{padding-inline:18px}.worksheet{padding:16px}.subject-header{display:none}.subject-row{grid-template-columns:1fr 1fr 38px;align-items:end;padding:12px 0;border-bottom:1px solid var(--line)}.subject-row>label:first-child{grid-column:1/-1}.mobile-label{display:block;margin-bottom:5px;color:var(--muted);font:10px var(--mono);text-transform:uppercase}.result-card{position:static;grid-row:1}.policy-section{gap:24px;padding-top:42px}.university-list a{grid-template-columns:60px 1fr auto}.site-footer{align-items:flex-start}.site-footer nav{gap:12px}}
+@media(max-width:560px){.save-term-row{grid-template-columns:1fr}.save-term-row .add-button{width:100%}.term-history{padding:16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Calculator pages prioritize the form over decorative content. */
+.university-page { border-top:4px solid var(--green-2); }
+.calculator-hero { position:relative; isolation:isolate; max-width:760px; min-height:190px; display:grid; align-content:center; overflow:hidden; padding:52px 150px 26px 24px; text-align:left; }
+.calculator-hero-mark { position:absolute; right:22px; top:50%; z-index:-1; width:180px; height:180px; object-fit:contain; transform:translateY(-50%); opacity:.09; filter:grayscale(1); pointer-events:none; user-select:none; }
+.verification-line { display:flex; align-items:center; gap:6px; margin:12px 0 0; color:var(--muted); font-size:12px; }
+.verification-line svg { flex:none; color:var(--green); }
+.verification-line a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
+.verification-line a:hover { color:var(--green); }
+.calculator-hero h1 { margin:0;color:var(--ink);font-size:clamp(32px,6vw,48px);line-height:1.05;letter-spacing:-.04em; }
+.calculator-hero>p { max-width:520px;margin:0;color:var(--muted);font-size:15px;line-height:1.55; }
+.calculator-shell { max-width:760px;grid-template-columns:1fr;gap:16px;padding:0 24px 64px; }
+.result-card { grid-row:1;position:static;display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px 24px;padding:22px 24px; }
+.result-card>strong { grid-column:2;grid-row:1/3;margin:0;font-size:54px; }
+.result-card .result-blocked { font-size:32px; }
+.scholarship-note,.formula { grid-column:1/-1;margin-top:14px;padding-top:16px; }
+.policy-section { max-width:712px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin:0 auto 70px;padding:22px 0;border-top:1px solid var(--line); }
+.policy-section p { max-width:520px;margin:0;color:var(--muted);font-size:12px;line-height:1.6; }
+.policy-section>a { flex:none;color:var(--green);font-size:12px;font-weight:700; }
+
+@media(max-width:760px){
+  .calculator-hero{padding:32px 110px 18px 18px}
+  .calculator-hero-mark{right:8px;width:132px;height:132px;opacity:.075}
+  .calculator-shell{padding-inline:14px}
+  .policy-section{margin-inline:14px;padding-top:22px;gap:16px}
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@media(max-width:520px){
+  .calculator-hero{padding:34px 18px 24px;min-height:178px;text-align:left}
+  .calculator-hero-mark{right:50%;width:150px;height:150px;transform:translate(50%,-50%);opacity:.055}
+  .result-card{grid-template-columns:1fr;padding:20px}
+  .result-card>strong{grid-column:1;grid-row:auto;font-size:48px}
+  .policy-section{display:grid}
 }
 
+/* Mobile-first usability refinements */
+@media(max-width:900px){
+  .calculator-shell{max-width:720px}
+  .subject-row input,.subject-row select{min-height:48px;font-size:16px}
+  .remove-button{width:44px;height:44px}
+  .add-button{min-height:46px}
+}
+
+@media(max-width:640px){
+  .site-header{position:relative;min-height:60px;align-items:center;gap:12px;padding:10px 16px}
+  .brand-logo { height:32px; }
+  .nav-toggle { display:grid; gap:5px; place-content:center; width:44px; height:44px; margin-right:-8px; border:0; background:transparent; cursor:pointer; }
+  .nav-toggle span { display:block; width:22px; height:2px; background:var(--ink); transition:transform 150ms ease, opacity 150ms ease; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity:0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  .site-header nav { position:absolute; top:100%; left:0; right:0; z-index:30; display:none; flex-direction:column; gap:0; padding:8px; border-bottom:1px solid var(--line); background:var(--card); box-shadow:0 12px 24px rgb(21 38 27 / .12); }
+  .site-header nav.is-open { display:flex; }
+  .site-header nav a { padding:12px; font-size:14px; }
+  .site-header nav a:hover { background:#f0f2ec; text-decoration:none; }
+  #main-content{min-height:calc(100dvh - 124px)}
+
+  .home-page{padding:48px 18px 64px}
+  .home-intro h1{font-size:40px}
+
+  .calculator-hero{padding:32px 18px 18px}
+  .calculator-hero h1{font-size:32px;line-height:1.08}
+  .calculator-hero>p:not(.kicker){font-size:14px}
+  .calculator-shell{gap:12px;padding:0 12px 48px}
+  .worksheet,.term-history{padding:16px;border-radius:0}
+  .section-heading{margin-bottom:16px;padding-bottom:12px}
+  .section-heading h2{font-size:18px}
+  .school-grid{grid-template-columns:1fr}
+  .custom-calculator-callout{align-items:flex-start;flex-direction:column}
+  .custom-calculator-link{width:100%;text-align:center}
+
+}
+
+/* University marks and image-capable picker */
+.university-logo { width:44px;height:44px;flex:none;object-fit:contain; }
+.university-logo-fallback { display:grid;place-items:center;border:1px solid var(--line);color:var(--muted);background:#fff;font-size:11px;font-weight:700; }
+.school-select label { display:block;font-size:14px;font-weight:700;color:var(--ink); }
+.school-search { position:relative; }
+.school-search-box { position:relative;display:flex;align-items:center; }
+.school-search-box input { width:100%;min-height:56px;padding:0 44px 0 16px;border:1px solid var(--line);border-radius:2px;background:var(--card);color:var(--ink);font-size:16px; }
+.school-search-box input::placeholder { color:var(--muted); }
+.school-search-box input:focus { outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgb(24 78 53 / .15); }
+.school-search-clear { position:absolute;right:6px;width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer; }
+.school-search-clear:hover { background:#eef1e8;color:var(--ink); }
+.school-search-hint { position:absolute;right:14px;color:var(--muted);font-size:20px;pointer-events:none; }
+.school-search-dropdown { position:absolute;z-index:20;top:calc(100% + 4px);left:0;right:0;max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:2px;background:#fff;box-shadow:0 10px 28px rgb(21 38 27 / .12); }
+.school-search-count { position:sticky;top:0;margin:0;padding:8px 12px;border-bottom:1px solid var(--line);background:#f7f7f2;color:var(--muted);font-size:12px; }
+.school-search-dropdown ul { margin:0;padding:0;list-style:none; }
+.school-search-dropdown li a { min-height:58px;display:flex;align-items:center;gap:12px;padding:8px 12px;border-bottom:1px solid var(--line);text-decoration:none; }
+.school-search-dropdown li:last-child a { border-bottom:0; }
+.school-search-dropdown li a:hover,.school-search-dropdown li a.is-highlighted { background:#f0f2ec; }
+.school-search-dropdown .university-logo { width:38px;height:38px; }
+.school-search-dropdown li a>span { display:grid;gap:2px; }
+.school-search-dropdown li strong { font-size:14px; }
+.school-search-dropdown li small { color:var(--muted);font-size:12px;line-height:1.25; }
+.school-search-empty { padding:16px; }
+.school-search-empty p { margin:0 0 8px;color:var(--muted);font-size:14px; }
+.school-search-empty a { color:var(--green);font-size:14px;font-weight:700;text-decoration:none; }
+.school-search-empty a:hover { text-decoration:underline; }
+
+@media(max-width:380px){
+  .site-header nav a{font-size:11px}
+  .calculator-hero h1{font-size:29px}
+  .worksheet-actions{display:grid;grid-template-columns:1fr 1fr}
+  .subject-row{grid-template-columns:minmax(0,1fr) 82px 40px;gap:6px}
+  .remove-button{width:40px}
+}
+
+/* Quiet result summary */
+.result-card { grid-row:1;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:24px 28px;color:var(--ink);background:var(--card);border-color:var(--line); }
+.result-value,.result-standing { display:grid;gap:4px; }
+.result-card span { color:var(--muted);font-size:13px; }
+.result-value strong { font-size:52px;line-height:1;letter-spacing:-.055em; }
+.result-value small,.result-standing small { color:var(--muted);font-size:12px; }
+.result-standing { max-width:280px;text-align:right; }
+.result-standing strong { color:var(--green);font-size:24px;line-height:1.15; }
+.result-card>p { max-width:310px;margin:0;color:var(--muted);font-size:13px;line-height:1.5;text-align:right; }
+
+.result-card { grid-row:auto; }
+.share-button { width:100%; padding:11px 16px; border:1px solid var(--green); border-radius:var(--radius); background:var(--green); color:#fff; font-size:13px; font-weight:700; cursor:pointer; }
+.share-button:hover { background:var(--green-2); border-color:var(--green-2); }
+.subject-table { gap:10px; }
+.subject-header { min-height:28px;padding:0 6px;border:1px solid transparent;color:#44564a;font:700 11px/1.4 var(--sans);letter-spacing:.02em;text-transform:none; }
+.subject-header span { padding:0 11px; }
+.subject-row { padding:6px;border:1px solid var(--line);background:#fff; }
+.subject-row input,.subject-row select { height:40px;border:0;background:transparent; }
+.subject-row input:focus,.subject-row select:focus { outline:2px solid #e6a900;outline-offset:0; }
+.subject-row label+label { border-left:1px solid var(--line); }
+
+@media(max-width:640px){
+  .result-card{display:grid;grid-template-columns:1fr;padding:18px 20px}
+  .result-value strong{font-size:44px}
+  .result-standing{max-width:none;padding-top:14px;border-top:1px solid var(--line);text-align:left}
+  .result-standing strong{font-size:21px}
+  .result-card>p{text-align:left}
+
+  .subject-header{display:grid;grid-template-columns:minmax(0,1fr) 82px 56px 36px;gap:4px;min-height:26px;padding:0 4px}
+
+/* Dark mode: follows system preference, keeps school brand accents */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --ink:#e6ece7; --muted:#9aa89e; --paper:#11160f; --card:#171d18;
+    --green:#6ea886; --green-2:#8cc4a3; --lime:#3d4a2e; --line:#2c352e;
   }
+  body { background:var(--paper); }
+  .school-search-box input,.subject-row,.subject-row input,.subject-row select,.school-search-dropdown,.not-found-popular a,.not-found-button { background:var(--card); color:var(--ink); }
+  .school-search-count { background:#1b221c; border-color:var(--line); }
+  .school-search-dropdown li a:hover,.school-search-dropdown li a.is-highlighted,.school-search-clear:hover { background:#20281f; }
+  .university-logo-fallback { background:var(--card); color:var(--muted); }
+  .logo-track-group>a::after,.logo-track-copy>span::after { background:var(--green); color:#11160f; }
+  .custom-calculator-callout { background:#1b231b; }
+  .custom-calculator-link,.share-button,.add-button,.not-found-button.primary,.cumulative-result { background:var(--green); color:#11160f; border-color:var(--green); }
+  .custom-calculator-link:hover,.share-button:hover,.add-button:hover { background:var(--green-2); border-color:var(--green-2); }
+  .site-header nav.is-open { background:var(--card); }
+  .nav-toggle span { background:var(--ink); }
+  .remove-button:hover { background:#3a2422; border-color:#5c3733; }
+  .verification-line a { color:inherit; }
+  .result-standing strong,.kicker,.universities-grid b { color:var(--green-2); }
+  .subject-header { color:#8d9a90; }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .subject-header span{padding:0 7px;font-size:10px}
+  .subject-row{grid-template-columns:minmax(0,1fr) 82px 56px 36px;align-items:center;gap:4px;padding:4px}
+  .subject-row>label:first-child{grid-column:auto}
+  .subject-row input,.subject-row select{height:42px;min-height:42px;padding:0 7px;font-size:14px}
+  .subject-row label+label{border-left:1px solid var(--line)}
+  .mobile-label{display:none}
+  .remove-button{width:36px;height:40px}
 }
+
+@media(max-width:380px){
+  .subject-header{grid-template-columns:minmax(0,1fr) 76px 48px 32px;gap:2px}
+  .subject-header span{padding-inline:5px}
+  .subject-row{grid-template-columns:minmax(0,1fr) 76px 48px 32px;gap:2px}
+  .subject-row input,.subject-row select{padding-inline:5px;font-size:13px}
+  .remove-button{width:32px}
+}
+
+/* Home page: direct, practical, and free of decorative demo UI. */
+.home-page { max-width:720px;margin:0 auto;padding:72px 20px 88px; }
+.home-intro h1 { margin:0;color:var(--ink);font-size:clamp(38px,7vw,56px);line-height:1.04;letter-spacing:-.04em; }
+.home-intro>p { max-width:590px;margin:16px 0 0;color:var(--muted);font-size:17px;line-height:1.6; }
+.home-intro .school-select { max-width:none;margin-top:28px; }
+.home-intro .privacy-note { margin-top:10px;color:var(--muted);font-size:12px; }
