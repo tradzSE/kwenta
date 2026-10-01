@@ -12,7 +12,27 @@ export async function generateMetadata({ params }: { params: Promise<{ universit
   const university = universityRegistry[slug];
   if (!university) return {};
   const keywords = [`${university.shortName} GWA calculator`, `${university.name} grades`, "GWA calculator Philippines", "compute GWA", university.calculatorName];
-  return { title: university.calculatorName, description: university.description, keywords, alternates: { canonical: `/${slug}` }, openGraph: { title: university.calculatorName, description: university.description, url: `/${slug}`, images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: `Kwenta — ${university.calculatorName}` }] }, twitter: { card: "summary_large_image", title: university.calculatorName, description: university.description, images: ["/og-image.jpg"] } };
+  const socialImage = `/${slug}/opengraph-image`;
+  const socialImageAlt = `${university.name} ${university.resultLabel} calculator on Kwenta`;
+
+  return {
+    title: university.calculatorName,
+    description: university.description,
+    keywords,
+    alternates: { canonical: `/${slug}` },
+    openGraph: {
+      title: university.calculatorName,
+      description: university.description,
+      url: `/${slug}`,
+      images: [{ url: socialImage, width: 1200, height: 630, alt: socialImageAlt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: university.calculatorName,
+      description: university.description,
+      images: [{ url: socialImage, alt: socialImageAlt }],
+    },
+  };
 }
 
 export default async function UniversityPage({ params }: { params: Promise<{ university: string }> }) {
