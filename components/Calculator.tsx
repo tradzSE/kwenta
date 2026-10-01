@@ -31,6 +31,7 @@ export default function Calculator({ university }: { university: UniversityConfi
   const [termName, setTermName] = useState("First semester");
   const [history, setHistory] = useState<SavedTerm[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [resetConfirmationOpen, setResetConfirmationOpen] = useState(false);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -55,10 +56,23 @@ export default function Calculator({ university }: { university: UniversityConfi
     if (loaded) localStorage.setItem(historyKey, JSON.stringify(history));
   }, [history, historyKey, loaded]);
 
+  useEffect(() => {
+    if (!resetConfirmationOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setResetConfirmationOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [resetConfirmationOpen]);
+
   const result = useMemo(() => calculateGwa(subjects, university), [subjects, university]);
   const update = (id: string, field: keyof Subject, value: string) => setSubjects((current) => current.map((subject) => subject.id === id ? { ...subject, [field]: value } : subject));
   const remove = (id: string) => setSubjects((current) => current.length === 1 ? current : current.filter((subject) => subject.id !== id));
-  const reset = () => window.confirm("Clear all subjects saved on this device?") && setSubjects([makeSubject(), makeSubject(), makeSubject(), makeSubject()]);
+  const reset = () => setResetConfirmationOpen(true);
+  const confirmReset = () => {
+    setSubjects([makeSubject(), makeSubject(), makeSubject(), makeSubject()]);
+    setResetConfirmationOpen(false);
+  };
   const saveTerm = () => {
     if (result.value === null || result.blockers.length) return;
     setHistory((current) => [{ id: makeId(), name: termName.trim() || "Untitled term", gwa: result.value!, units: result.includedUnits, savedAt: new Date().toISOString() }, ...current]);
@@ -186,6 +200,7 @@ export default function Calculator({ university }: { university: UniversityConfi
   const academicStanding = getAcademicStanding(result, university);
 
   return (
+    <>
     <div className="calculator-shell">
       <section className="worksheet" aria-labelledby="subjects-title">
         <div className="section-heading"><h2 id="subjects-title">Your subjects</h2><button type="button" className="text-button" onClick={reset}>Clear all</button></div>
@@ -219,5 +234,19 @@ export default function Calculator({ university }: { university: UniversityConfi
         {history.length > 0 && <div className="history-list"><div className="cumulative-result"><span>Saved cumulative estimate</span><strong>{cumulative?.toFixed(university.roundingDecimals) ?? "—"}</strong></div>{history.map((term) => <div className="history-row" key={term.id}><div><strong>{term.name}</strong><span>{term.units} units · {new Date(term.savedAt).toLocaleDateString()}</span></div><b>{term.gwa.toFixed(university.roundingDecimals)}</b><button type="button" className="remove-button" aria-label={`Remove ${term.name}`} onClick={() => setHistory((current) => current.filter((item) => item.id !== term.id))}>×</button></div>)}</div>}
       </section>
     </div>
+    {resetConfirmationOpen && (
+      <div className="confirmation-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setResetConfirmationOpen(false)}>
+        <section className="confirmation-dialog" role="alertdialog" aria-modal="true" aria-labelledby="reset-dialog-title" aria-describedby="reset-dialog-description">
+          <span className="confirmation-eyebrow">Clear calculator</span>
+          <h2 id="reset-dialog-title">Remove all subjects?</h2>
+          <p id="reset-dialog-description">This clears the current subject entries saved on this device. Your saved semesters will remain.</p>
+          <div className="confirmation-actions">
+            <button type="button" className="confirmation-cancel" autoFocus onClick={() => setResetConfirmationOpen(false)}>Keep subjects</button>
+            <button type="button" className="confirmation-danger" onClick={confirmReset}>Clear all</button>
+          </div>
+        </section>
+      </div>
+    )}
+    </>
   );
 }
