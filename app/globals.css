@@ -335,3 +335,32 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .home-intro>p { max-width:590px;margin:16px 0 0;color:var(--muted);font-size:17px;line-height:1.6; }
 .home-intro .school-select { max-width:none;margin-top:28px; }
 .home-intro .privacy-note { margin-top:10px;color:var(--muted);font-size:12px; }
+.seo-section { margin-top:64px;padding-top:34px;border-top:1px solid var(--line); }
+.seo-section h2 { margin:0 0 14px;color:var(--ink);font-size:clamp(25px,4vw,34px);line-height:1.15;letter-spacing:-.035em; }
+.seo-section>p:not(.kicker) { margin:0;color:var(--muted);font-size:15px;line-height:1.7; }
+.calculation-steps { display:grid;gap:0;margin:28px 0;padding:0;list-style:none;counter-reset:gwa-step; }
+.calculation-steps li { counter-increment:gwa-step;display:grid;grid-template-columns:42px 1fr;gap:4px 14px;padding:18px 0;border-top:1px solid var(--line); }
+.calculation-steps li::before { content:counter(gwa-step);grid-row:1 / 3;width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--green);border-radius:50%;color:var(--green);font-size:13px;font-weight:800; }
+.calculation-steps strong { color:var(--ink);font-size:15px; }
+.calculation-steps span { color:var(--muted);font-size:13px;line-height:1.55; }
+.formula-block { display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px;border:1px solid var(--green);background:var(--card); }
+.formula-block span { color:var(--muted);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em; }
+.formula-block strong { color:var(--green);font:700 clamp(17px,3vw,23px) var(--mono); }
+.seo-section .methodology-link { margin-top:16px!important;font-size:13px!important; }
+.methodology-link a,.seo-university-links a { color:var(--green);font-weight:700; }
+.seo-university-links { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:26px 0 0;padding:0;border-top:1px solid var(--line);list-style:none; }
+.seo-university-links li { border-bottom:1px solid var(--line); }
+.seo-university-links li:nth-child(odd) { border-right:1px solid var(--line); }
+.seo-university-links a { min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;text-decoration:none; }
+.seo-university-links a:hover { background:var(--card); }
+.seo-university-links span { flex:none;color:var(--muted);font-size:11px;font-weight:700; }
+.faq-section details { border-top:1px solid var(--line); }
+.faq-section details:last-child { border-bottom:1px solid var(--line); }
+.faq-section summary { padding:18px 4px;color:var(--ink);font-size:15px;font-weight:700;cursor:pointer; }
+.faq-section details p { margin:0;padding:0 4px 18px;color:var(--muted);font-size:14px;line-height:1.65; }
+@media(max-width:600px){
+  .seo-section{margin-top:48px;padding-top:28px}
+  .formula-block{align-items:flex-start;flex-direction:column}
+  .seo-university-links{grid-template-columns:1fr}
+  .seo-university-links li:nth-child(odd){border-right:0}
+}
