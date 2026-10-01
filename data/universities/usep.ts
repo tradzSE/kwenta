@@ -20,6 +20,6 @@ export const usep: UniversityConfig = {
   sourceUrl: "https://www.usep.edu.ph/wp-content/uploads/2020/03/Student-Handbook-2016-EDITION.pdf",
   policyYear: "2016 Student Handbook",
   lastVerified: "October 2026",
-  logoSrc: "/universities/usep.webp",
+  logoSrc: "/universities/usep.png",
   brandColors: { primary: "#B51F1F", secondary: "#F3D21B" },
 };

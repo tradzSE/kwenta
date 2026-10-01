@@ -20,6 +20,6 @@ export const batstateu: UniversityConfig = {
   sourceUrl: "https://www.batstate-u.edu.ph/sites/files/osas/New-Student-Handbook-AY-2017-2018.pdf",
   policyYear: "AY 2017-2018 Student Handbook",
   lastVerified: "October 2026",
-  logoSrc: "/universities/batstateu.webp",
+  logoSrc: "/universities/batstateu.png",
   brandColors: { primary: "#A71930", secondary: "#F2B134" },
 };

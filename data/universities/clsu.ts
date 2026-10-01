@@ -22,7 +22,7 @@ export const clsu: UniversityConfig = {
   sourceUrl: "https://oad.clsu.edu.ph/student-handbook",
   policyYear: "2024–2025",
   lastVerified: "October 2026",
-  logoSrc: "/universities/clsu-optimized.webp",
+  logoSrc: "/universities/clsu.png",
   brandColors: { primary: "#008000", secondary: "#FFD700" },
   scholarshipRules: { universityMax: 1.5, collegeMax: 1.75, deansListMax: 2, minimumUnits: 15 },
 };

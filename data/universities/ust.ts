@@ -23,7 +23,7 @@ export const ust: UniversityConfig = {
   sourceUrl: "https://www.ust.edu.ph/student-handbook/",
   policyYear: "2026",
   lastVerified: "October 2026",
-  logoSrc: "/universities/ust-optimized.webp",
+  logoSrc: "/universities/ust.png",
   brandColors: { primary: "#111111", secondary: "#FCBF15" },
   scholarshipRules: {
     universityMax: 1.2,

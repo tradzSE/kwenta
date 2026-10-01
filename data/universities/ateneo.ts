@@ -29,7 +29,7 @@ export const ateneo: UniversityConfig = {
   sourceUrl: "https://www.ateneo.edu/sites/default/files/2025-09/Vol%201%202025%20Ed.%20College%20Student%20Handbook.pdf",
   policyYear: "2025 College Student Handbook",
   lastVerified: "October 2026",
-  logoSrc: "/universities/ateneo.webp",
+  logoSrc: "/universities/ateneo.png",
   brandColors: { primary: "#001196", secondary: "#FFFFFF" },
   scholarshipRules: {
     universityMax: 3.7,

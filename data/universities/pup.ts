@@ -20,7 +20,7 @@ export const pup: UniversityConfig = {
   roundingDecimals: 2,
   sourceUrl: "https://www.pup.edu.ph/studentservices/osfa/services",
   lastVerified: "October 2026",
-  logoSrc: "/universities/pup-optimized.webp",
+  logoSrc: "/universities/pup.png",
   brandColors: { primary: "#800000", secondary: "#E5A900" },
   scholarshipRules: {
     universityMax: 1.5,

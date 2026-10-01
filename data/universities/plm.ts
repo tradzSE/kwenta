@@ -6,6 +6,6 @@ export const plm: UniversityConfig = {
   slug: "plm", shortName: "PLM", name: "Pamantasan ng Lungsod ng Maynila", calculatorName: "PLM GWA Calculator", resultLabel: "GWA",
   description: "Calculate a weighted grade estimate for Pamantasan ng Lungsod ng Maynila.", gradeDirection: "lower-is-better",
   gradeOptions: grades.map((grade) => ({ label: grade.toFixed(2), value: String(grade), numericValue: grade, behavior: "include" as const })),
-  passingGrade: 3, roundingDecimals: 2, sourceUrl: "https://plm.edu.ph/", lastVerified: "October 2026", logoSrc: "/universities/plm-optimized.webp",
+  passingGrade: 3, roundingDecimals: 2, sourceUrl: "https://plm.edu.ph/", lastVerified: "October 2026", logoSrc: "/universities/plm.png",
   brandColors: { primary: "#0055A4", secondary: "#F4C542" },
 };

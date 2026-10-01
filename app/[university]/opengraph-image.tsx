@@ -14,9 +14,7 @@ export default async function UniversityOpenGraphImage({
   const university = universityRegistry[slug] ?? universityRegistry.custom;
   const primary = university.brandColors?.primary ?? "#145c3b";
   const secondary = university.brandColors?.secondary ?? "#dce8cf";
-  const ogLogoPath = university.logoSrc
-    ? university.logoSrc.replace(/\.[^.]+$/, "-og.png")
-    : "/web-logo.png";
+  const ogLogoPath = university.logoSrc ?? "/web-logo.png";
   const deploymentHost = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
   const assetOrigin = deploymentHost ? `https://${deploymentHost}` : "http://localhost:3000";
   const logoSrc = new URL(

@@ -22,6 +22,6 @@ export const tsu: UniversityConfig = {
   sourceUrl: "https://tsu.edu.ph/media/nbjlvnvm/student-manual-2024-edition.pdf",
   policyYear: "2024 Student Manual",
   lastVerified: "October 2026",
-  logoSrc: "/universities/tsu.webp",
+  logoSrc: "/universities/tsu.png",
   brandColors: { primary: "#8A1538", secondary: "#F2C300" },
 };

@@ -22,7 +22,7 @@ export const up: UniversityConfig = {
   roundingDecimals: 2,
   sourceUrl: "https://nip.upd.edu.ph/academic-resources/frequently-asked-questions/",
   lastVerified: "October 2026",
-  logoSrc: "/universities/up-optimized.webp",
+  logoSrc: "/universities/up.png",
   brandColors: { primary: "#7B1113", secondary: "#014421" },
   scholarshipRules: { universityMax: 1.45, collegeMax: 1.75, minimumUnits: 15 },
 };

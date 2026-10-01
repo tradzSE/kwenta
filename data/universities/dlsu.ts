@@ -23,7 +23,7 @@ export const dlsu: UniversityConfig = {
   sourceUrl: "https://old.dlsu.edu.ph/offices/registrar/faculty-attendance/grades/",
   policyYear: "2021–2025 Student Handbook",
   lastVerified: "October 2026",
-  logoSrc: "/universities/dlsu-optimized.webp",
+  logoSrc: "/universities/dlsu.png",
   brandColors: { primary: "#00703C", secondary: "#000000" },
   scholarshipRules: {
     universityMax: 3.4,

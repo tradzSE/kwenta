@@ -19,6 +19,6 @@ export const msu: UniversityConfig = {
   sourceUrl: "https://www.msumain.edu.ph/wp-content/uploads/2023/10/Student_Handbook_2019-2020.pdf",
   policyYear: "2019-2020 Student Handbook",
   lastVerified: "October 2026",
-  logoSrc: "/universities/msu.webp",
+  logoSrc: "/universities/msu.png",
   brandColors: { primary: "#74172C", secondary: "#F3C623" },
 };
