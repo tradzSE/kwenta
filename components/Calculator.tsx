@@ -9,6 +9,21 @@ const makeId = () => (typeof crypto !== "undefined" && typeof crypto.randomUUID 
 const makeSubject = (): Subject => ({ id: makeId(), name: "", grade: "", units: "3" });
 type SavedTerm = { id: string; name: string; gwa: number; units: number; savedAt: string };
 
+const loadCanvasImage = (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
+  const image = new Image();
+  image.crossOrigin = "anonymous";
+  image.onload = () => resolve(image);
+  image.onerror = reject;
+  image.src = src;
+});
+
+const drawContainedImage = (context: CanvasRenderingContext2D, image: HTMLImageElement, x: number, y: number, width: number, height: number) => {
+  const scale = Math.min(width / image.naturalWidth, height / image.naturalHeight);
+  const renderedWidth = image.naturalWidth * scale;
+  const renderedHeight = image.naturalHeight * scale;
+  context.drawImage(image, x + (width - renderedWidth) / 2, y + (height - renderedHeight) / 2, renderedWidth, renderedHeight);
+};
+
 export default function Calculator({ university }: { university: UniversityConfig }) {
   const storageKey = `gwa-calculator:${university.slug}:subjects`;
   const historyKey = `gwa-calculator:${university.slug}:history`;
@@ -59,32 +74,90 @@ export default function Calculator({ university }: { university: UniversityConfi
     canvas.height = size;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    ctx.fillStyle = "#f5f4ed";
+    const primary = university.brandColors?.primary ?? "#145c3b";
+    const secondary = university.brandColors?.secondary ?? "#dce8cf";
+    ctx.fillStyle = "#f7f5ed";
     ctx.fillRect(0, 0, size, size);
-    ctx.fillStyle = "#184e35";
-    ctx.fillRect(0, 0, size, 24);
-    ctx.fillRect(0, size - 24, size, 24);
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#184e35";
-    ctx.font = "700 64px Georgia, serif";
-    ctx.fillText("Kwenta", size / 2, 180);
-    ctx.fillStyle = "#5e6c62";
-    ctx.font = "40px Georgia, serif";
-    ctx.fillText(university.calculatorName, size / 2, 250);
-    ctx.fillStyle = "#15261b";
-    ctx.font = "700 280px Georgia, serif";
-    ctx.fillText(gwa, size / 2, 600);
-    ctx.fillStyle = "#5e6c62";
-    ctx.font = "36px Georgia, serif";
-    ctx.fillText(`Estimated ${university.resultLabel} · ${result.includedUnits} units`, size / 2, 680);
-    if (academicStanding?.label) {
-      ctx.fillStyle = "#184e35";
-      ctx.font = "700 52px Georgia, serif";
-      ctx.fillText(academicStanding.label, size / 2, 780);
+    ctx.fillStyle = primary;
+    ctx.fillRect(0, 0, 30, size);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.strokeStyle = primary;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.roundRect(76, 72, 190, 190, 24);
+    ctx.fill();
+    ctx.stroke();
+
+    if (university.logoSrc) {
+      try {
+        const logo = await loadCanvasImage(university.logoSrc);
+        drawContainedImage(ctx, logo, 101, 97, 140, 140);
+      } catch {
+        ctx.fillStyle = primary;
+        ctx.textAlign = "center";
+        ctx.font = "700 44px Arial, sans-serif";
+        ctx.fillText(university.shortName, 171, 185, 145);
+      }
     }
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#15231b";
+    ctx.font = "700 54px Arial, sans-serif";
+    ctx.fillText(university.shortName, 306, 132);
+    ctx.fillStyle = "#4f5c54";
+    ctx.font = "32px Arial, sans-serif";
+    ctx.fillText(university.calculatorName, 306, 186, 690);
+    ctx.fillStyle = primary;
+    ctx.font = "700 30px Arial, sans-serif";
+    ctx.fillText("KWENTA · GWA MADE SIMPLE", 306, 238);
+
+    ctx.strokeStyle = "#cbd3c9";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(76, 306);
+    ctx.lineTo(1004, 306);
+    ctx.stroke();
+
+    ctx.fillStyle = "#4f5c54";
+    ctx.font = "700 30px Arial, sans-serif";
+    ctx.fillText(`ESTIMATED ${university.resultLabel.toUpperCase()}`, 76, 390);
+    ctx.fillStyle = "#15261b";
+    ctx.font = "700 220px Arial, sans-serif";
+    ctx.fillText(gwa, 68, 610);
     ctx.fillStyle = "#5e6c62";
-    ctx.font = "32px Georgia, serif";
-    ctx.fillText("kwenta.ranierteraldico.me", size / 2, 920);
+    ctx.font = "36px Arial, sans-serif";
+    ctx.fillText(`${result.includedUnits} included units`, 82, 682);
+
+    if (academicStanding?.label) {
+      ctx.fillStyle = secondary === "#FFFFFF" ? "#eef2ec" : `${secondary}55`;
+      ctx.strokeStyle = primary;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.roundRect(76, 746, 928, 134, 18);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = primary;
+      ctx.font = "700 26px Arial, sans-serif";
+      ctx.fillText("ACADEMIC STANDING", 110, 797);
+      ctx.fillStyle = "#15231b";
+      ctx.font = "700 42px Arial, sans-serif";
+      ctx.fillText(academicStanding.label, 110, 850, 850);
+    }
+
+    const footerY = academicStanding?.label ? 962 : 850;
+    ctx.strokeStyle = "#cbd3c9";
+    ctx.beginPath();
+    ctx.moveTo(76, footerY - 52);
+    ctx.lineTo(1004, footerY - 52);
+    ctx.stroke();
+    ctx.fillStyle = "#5e6c62";
+    ctx.font = "30px Arial, sans-serif";
+    ctx.fillText("kwenta.ranierteraldico.me", 76, footerY);
+    ctx.textAlign = "right";
+    ctx.fillStyle = primary;
+    ctx.font = "700 30px Arial, sans-serif";
+    ctx.fillText(university.name, 1004, footerY, 520);
     const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
     if (!blob) return;
     const file = new File([blob], `kwenta-${university.slug}-${gwa}.png`, { type: "image/png" });
