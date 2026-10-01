@@ -5,18 +5,20 @@ import { universities } from "@/data/universities/registry";
 
 export const metadata: Metadata = {
   title: "Supported Universities",
-  description: "Browse all supported university GWA calculator presets — UP, PUP, UST, DLSU, CLSU, BatStateU and more. Every preset is verified against an official grading policy.",
-  keywords: ["supported universities", "UP GWA calculator", "PUP GWA calculator", "UST GWA calculator", "DLSU GWA calculator", "CLSU GWA calculator"],
+  description: "Browse GWA calculator presets for Philippine universities, including UP, PUP, UST, DLSU, CLSU, NEUST, BulSU, ASCOT, and more.",
+  keywords: ["supported universities", "NEUST GWA calculator", "BulSU GWA calculator", "ASCOT GWA calculator", "PSAU GWA calculator", "DHVSU GWA calculator", "UP GWA calculator", "PUP GWA calculator", "CLSU GWA calculator"],
   alternates: { canonical: "/universities" },
 };
 
 export default function UniversitiesPage() {
-  const supported = universities.filter((university) => university.slug !== "custom");
+  const supported = universities
+    .filter((university) => university.slug !== "custom")
+    .sort((first, second) => first.name.localeCompare(second.name));
   return (
     <section className="text-page universities-page">
       <p className="kicker">Directory · {supported.length} supported</p>
       <h1>Supported calculators</h1>
-      <p>Every preset below is verified against an official grading policy. Can&apos;t find yours? <Link href="/custom">Use the custom calculator</Link>.</p>
+      <p>Choose your university to use its available grade options and calculation settings. Can&apos;t find yours? <Link href="/custom">Use the custom calculator</Link>.</p>
       <ul className="universities-grid">
         {supported.map((university) => (
           <li key={university.slug}>

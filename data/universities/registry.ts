@@ -1,13 +1,18 @@
 import { ateneo } from "./ateneo";
+import { ascot } from "./ascot";
 import { batstateu } from "./batstateu";
+import { bulsu } from "./bulsu";
 import { clsu } from "./clsu";
 import { custom } from "./custom";
+import { dhvsu } from "./dhvsu";
 import { dlsu } from "./dlsu";
 import { feu } from "./feu";
 import { mapua } from "./mapua";
 import { msu } from "./msu";
+import { neust } from "./neust";
 import { nu } from "./nu";
 import { plm } from "./plm";
+import { psau } from "./psau";
 import { pup } from "./pup";
 import { tip } from "./tip";
 import { tsu } from "./tsu";
@@ -16,5 +21,5 @@ import { ust } from "./ust";
 import { ue } from "./ue";
 import { usep } from "./usep";
 
-export const universities = [clsu, up, pup, ust, dlsu, ateneo, mapua, feu, ue, nu, tip, plm, batstateu, tsu, msu, usep, custom];
+export const universities = [clsu, up, pup, ust, dlsu, ateneo, mapua, feu, ue, nu, tip, plm, batstateu, tsu, msu, usep, neust, ascot, bulsu, psau, dhvsu, custom];
 export const universityRegistry = Object.fromEntries(universities.map((university) => [university.slug, university]));

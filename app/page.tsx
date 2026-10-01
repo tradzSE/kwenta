@@ -91,27 +91,6 @@ export default function Home() {
       </div>
     </section>
 
-    <section className="seo-section" aria-labelledby="how-gwa-works">
-      <p className="kicker">General Weighted Average</p>
-      <h2 id="how-gwa-works">How to calculate your GWA</h2>
-      <p>Your GWA gives subjects with more units a greater effect on your final average. Gather the final grade and units for every included subject, then follow these steps:</p>
-      <ol className="calculation-steps">
-        <li><strong>Choose your university.</strong><span>Kwenta loads its grade scale, included marks, rounding, and available academic-standing rules.</span></li>
-        <li><strong>Enter grades and units.</strong><span>Add each subject and select the grade shown on your record.</span></li>
-        <li><strong>Review your estimate.</strong><span>Your weighted result updates immediately and remains saved only on your device.</span></li>
-      </ol>
-      <div className="formula-block"><span>GWA formula</span><strong>Σ (grade × units) ÷ Σ units</strong></div>
-      <p className="methodology-link">Need the full explanation? <Link href="/methodology">Read the calculation methodology</Link>.</p>
-    </section>
-
-    <section className="seo-section" aria-labelledby="university-calculators-title">
-      <h2 id="university-calculators-title">GWA calculators by university</h2>
-      <p>University rules are not always interchangeable. Open your school&apos;s calculator to use its supported grade options and see the source used for the preset.</p>
-      <ul className="seo-university-links">
-        {supportedUniversities.map((university) => <li key={university.slug}><Link href={`/${university.slug}`}>{university.name} <span>{university.shortName}</span></Link></li>)}
-      </ul>
-    </section>
-
     <section className="seo-section faq-section" aria-labelledby="gwa-faq-title">
       <h2 id="gwa-faq-title">GWA calculator questions</h2>
       {faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
