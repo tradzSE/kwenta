@@ -289,29 +289,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 
   .subject-header{display:grid;grid-template-columns:minmax(0,1fr) 82px 56px 36px;gap:4px;min-height:26px;padding:0 4px}
 
-/* Dark mode: follows system preference, keeps school brand accents */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink:#e6ece7; --muted:#9aa89e; --paper:#11160f; --card:#171d18;
-    --green:#6ea886; --green-2:#8cc4a3; --lime:#3d4a2e; --line:#2c352e;
-  }
-  body { background:var(--paper); }
-  .school-search-box input,.subject-row,.subject-row input,.subject-row select,.school-search-dropdown,.not-found-popular a,.not-found-button { background:var(--card); color:var(--ink); }
-  .school-search-count { background:#1b221c; border-color:var(--line); }
-  .school-search-dropdown li a:hover,.school-search-dropdown li a.is-highlighted,.school-search-clear:hover { background:#20281f; }
-  .university-logo-fallback { background:var(--card); color:var(--muted); }
-  .logo-track-group>a::after,.logo-track-copy>span::after { background:var(--green); color:#11160f; }
-  .custom-calculator-callout { background:#1b231b; }
-  .custom-calculator-link,.share-button,.add-button,.not-found-button.primary,.cumulative-result { background:var(--green); color:#11160f; border-color:var(--green); }
-  .custom-calculator-link:hover,.share-button:hover,.add-button:hover { background:var(--green-2); border-color:var(--green-2); }
-  .site-header nav.is-open { background:var(--card); }
-  .nav-toggle span { background:var(--ink); }
-  .remove-button:hover { background:#3a2422; border-color:#5c3733; }
-  .verification-line a { color:inherit; }
-  .result-standing strong,.kicker,.universities-grid b { color:var(--green-2); }
-  .subject-header { color:#8d9a90; }
-}
-
   .subject-header span{padding:0 7px;font-size:10px}
   .subject-row{grid-template-columns:minmax(0,1fr) 82px 56px 36px;align-items:center;gap:4px;padding:4px}
   .subject-row>label:first-child{grid-column:auto}
