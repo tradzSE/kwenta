@@ -51,7 +51,7 @@ export default function SchoolSelector() {
   };
 
   return (
-    <div className="school-select">
+    <div className={`school-select${open ? " is-open" : ""}`}>
       <label htmlFor="school-search">University</label>
       <div className="school-search" ref={containerRef}>
         <div className="school-search-box">
@@ -64,7 +64,7 @@ export default function SchoolSelector() {
             aria-controls="school-search-list"
             aria-autocomplete="list"
             autoComplete="off"
-            placeholder="Type to search i.e CLSU, UP, DLSU, etc."
+            placeholder="Search your university"
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);
@@ -159,4 +159,3 @@ export default function SchoolSelector() {
     </div>
   );
 }
-

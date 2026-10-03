@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
@@ -44,5 +44,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" className={`${geist.variable} ${geistMono.variable}`}><body><SiteHeader /><main id="main-content">{children}</main><footer className="site-footer"><span>Built by Ranier Teraldico</span><nav><a href="https://ranierteraldico.me">Portfolio</a><Link href="/privacy">Privacy</Link></nav></footer></body></html>;
+  return <html lang="en" className={`${geist.variable} ${geistMono.variable}`}><body><SiteHeader /><main id="main-content">{children}</main><SiteFooter /></body></html>;
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Link from "next/link";
-import SchoolSelector from "@/components/SchoolSelector";
+import HomeSearch from "@/components/HomeSearch";
 import UniversityMark from "@/components/UniversityMark";
 import { universities } from "@/data/universities/registry";
 
@@ -23,77 +24,48 @@ export const metadata: Metadata = {
   },
 };
 
-const faqs = [
-  {
-    question: "How do I calculate my GWA?",
-    answer: "Multiply each subject grade by its number of units, add all weighted grade points, then divide by the total included units. Kwenta performs this calculation automatically.",
-  },
-  {
-    question: "What is the GWA formula?",
-    answer: "GWA equals the sum of each grade multiplied by its units, divided by the sum of all included units: Σ(grade × units) ÷ Σ units.",
-  },
-  {
-    question: "Does every Philippine university calculate GWA the same way?",
-    answer: "The weighted-average formula is common, but grade scales, excluded subjects, incomplete marks, rounding, and academic-standing rules differ by university. Kwenta provides separate presets based on published school policies.",
-  },
-  {
-    question: "Are my grades uploaded or stored online?",
-    answer: "No. Kwenta calculates and saves entries in your browser. Your grades are not sent to a server or shared with the university.",
-  },
-];
-
 export default function Home() {
-  const supportedUniversities = universities.filter((university) => university.slug !== "custom");
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      name: "Kwenta GWA Calculator Philippines",
-      url: "https://kwenta.ranierteraldico.me/",
-      applicationCategory: "EducationalApplication",
-      operatingSystem: "Any",
-      browserRequirements: "Requires a modern web browser",
-      offers: { "@type": "Offer", price: "0", priceCurrency: "PHP" },
-      description: "A free university-specific General Weighted Average calculator for Filipino students.",
-      featureList: ["University grading presets", "Weighted GWA calculation", "Academic standing estimates", "Saved semesters", "CSV export", "Private browser storage"],
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
-    },
-  ];
+  const orbit = universities.filter((u) => u.slug !== "custom").slice(0, 10);
+  const tilts = ["-8deg", "6deg", "-5deg", "7deg", "7deg", "-7deg", "-8deg", "6deg", "-6deg", "6deg"];
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Kwenta GWA Calculator Philippines",
+    url: "https://kwenta.ranierteraldico.me/",
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires a modern web browser",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "PHP" },
+    description: "A free university-specific General Weighted Average calculator for Filipino students.",
+    featureList: ["University grading presets", "Weighted GWA calculation", "Academic standing estimates", "Saved semesters", "CSV export", "Private browser storage"],
+  };
 
-  return <div className="home-page">
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
-    <section className="home-intro">
-      <h1>GWA Calculator Philippines</h1>
-      <p>Calculate your General Weighted Average for free. Choose your university, enter your grades and units, and get an instant GWA, GPA, or QPI estimate based on your school&apos;s grading preset.</p>
-      <SchoolSelector />
-      <p className="privacy-note">No sign-up. Your entries stay in this browser only.</p>
-    </section>
-
-    <section className="supported-universities" aria-labelledby="supported-universities-title">
-      <h2 id="supported-universities-title">Supported Universities</h2>
-      <div className="logo-marquee">
-        <div className="logo-track">
-          <div className="logo-track-group">
-            {supportedUniversities.map((university) => <Link href={`/${university.slug}`} key={university.slug} aria-label={`Open ${university.name} calculator`} data-university={university.name}><UniversityMark logoSrc={university.logoSrc} shortName={university.shortName} /></Link>)}
-          </div>
-          <div className="logo-track-group logo-track-copy" aria-hidden="true">
-            {supportedUniversities.map((university) => <span key={university.slug} data-university={university.name}><UniversityMark logoSrc={university.logoSrc} shortName={university.shortName} /></span>)}
-          </div>
+  return (
+    <div className="kwenta-home">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
+      <section className="kwenta-hero" aria-label="Find your university calculator">
+        <div className="kwenta-orbit" aria-hidden="true">
+          <span className="kwenta-orbit-ring kwenta-orbit-ring-1" />
+          <span className="kwenta-orbit-ring kwenta-orbit-ring-2" />
+          <span className="kwenta-sparkle kwenta-sparkle-1">+</span>
+          <span className="kwenta-sparkle kwenta-sparkle-2">+</span>
+          <span className="kwenta-sparkle kwenta-sparkle-3">+</span>
+          <span className="kwenta-sparkle kwenta-sparkle-4">+</span>
+          <span className="kwenta-sparkle kwenta-sparkle-5">+</span>
         </div>
-      </div>
-      <div className="custom-calculator-callout">
-        <span><strong>University not listed?</strong><small>Use your own grading scale.</small></span>
-        <Link className="custom-calculator-link" href="/custom">Open custom calculator</Link>
-      </div>
-    </section>
-
-    <section className="seo-section faq-section" aria-labelledby="gwa-faq-title">
-      <h2 id="gwa-faq-title">GWA calculator questions</h2>
-      {faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
-    </section>
-  </div>;
+        <div className="kwenta-floaters" aria-label="Featured universities">
+          {orbit.map((university, index) => (
+            <Link className={`kwenta-floater kwenta-floater-${index + 1}`} href={`/${university.slug}`} key={university.slug} style={{ "--tilt": tilts[index % tilts.length] } as CSSProperties} aria-label={`Open ${university.name} calculator`} title={university.name}>
+              <UniversityMark logoSrc={university.logoSrc} shortName={university.shortName} size={62} />
+            </Link>
+          ))}
+        </div>
+        <div className="kwenta-hero-content">
+          <h1>Calculate your <em>GWA</em></h1>
+          <p className="kwenta-sub">Find your university to use its grading scale and calculation settings. Fast, simple, and made for Filipino students.</p>
+          <HomeSearch />
+        </div>
+      </section>
+    </div>
+  );
 }

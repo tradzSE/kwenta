@@ -26,11 +26,16 @@ const nextConfig: NextConfig = {
       ["ust-optimized.webp", "ust.png"],
     ];
 
-    return legacyLogos.map(([source, destination]) => ({
+    return [
+      ...legacyLogos.map(([source, destination]) => ({
       source: `/universities/${source}`,
       destination: `/universities/${destination}`,
       permanent: true,
-    }));
+      })),
+      { source: "/methodology", destination: "/information#methodology", permanent: true },
+      { source: "/about", destination: "/information#about", permanent: true },
+      { source: "/privacy", destination: "/information#privacy", permanent: true },
+    ];
   },
   async headers() {
     return [

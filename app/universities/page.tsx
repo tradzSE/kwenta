@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import UniversityMark from "@/components/UniversityMark";
+import UniversityDirectory from "@/components/UniversityDirectory";
 import { universities } from "@/data/universities/registry";
 
 export const metadata: Metadata = {
@@ -11,28 +10,13 @@ export const metadata: Metadata = {
 };
 
 export default function UniversitiesPage() {
-  const supported = universities
-    .filter((university) => university.slug !== "custom")
+  const supported = [...universities]
     .sort((first, second) => first.name.localeCompare(second.name));
+
   return (
     <section className="text-page universities-page">
-      <p className="kicker">Directory · {supported.length} supported</p>
-      <h1>Supported calculators</h1>
-      <p>Choose your university to use its available grade options and calculation settings. Can&apos;t find yours? <Link href="/custom">Use the custom calculator</Link>.</p>
-      <ul className="universities-grid">
-        {supported.map((university) => (
-          <li key={university.slug}>
-            <Link href={`/${university.slug}`}>
-              <UniversityMark logoSrc={university.logoSrc} shortName={university.shortName} size={44} />
-              <span>
-                <strong>{university.shortName}</strong>
-                <small>{university.name}</small>
-              </span>
-              <b aria-hidden="true">→</b>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <header className="directory-header"><div><h1>Choose your university</h1><p>Select a school to open its calculator.</p></div><span>{supported.length - 1} supported</span></header>
+      <UniversityDirectory universities={supported.map(({ slug, name, shortName, logoSrc }) => ({ slug, name, shortName, logoSrc }))} />
     </section>
   );
 }

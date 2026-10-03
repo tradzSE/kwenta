@@ -3,9 +3,18 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { IconBook2, IconBuildingCommunity, IconHome } from "@tabler/icons-react";
+import { usePathname } from "next/navigation";
+
+const navigation = [
+  { href: "/", label: "Home", icon: IconHome },
+  { href: "/universities", label: "Universities", icon: IconBuildingCommunity },
+  { href: "/information", label: "Information", icon: IconBook2 },
+];
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="site-header">
@@ -25,9 +34,20 @@ export default function SiteHeader() {
         <span aria-hidden="true" />
       </button>
       <nav id="main-nav" aria-label="Main navigation" className={open ? "is-open" : undefined}>
-        <Link href="/universities" onClick={() => setOpen(false)}>Universities</Link>
-        <Link href="/methodology" onClick={() => setOpen(false)}>How it works</Link>
-        <Link href="/about" onClick={() => setOpen(false)}>About</Link>
+        {navigation.map(({ href, label, icon: Icon }) => {
+          const isUniversityCalculator = !["/", "/information", "/universities"].includes(pathname);
+          const active = href === "/"
+            ? pathname === href
+            : href === "/universities"
+              ? pathname === href || isUniversityCalculator
+              : pathname === href || pathname.startsWith(`${href}/`);
+          return (
+            <Link href={href} key={href} className={active ? "active" : undefined} aria-current={active ? "page" : undefined} onClick={() => setOpen(false)}>
+              <Icon size={21} stroke={1.8} aria-hidden="true" />
+              <span>{label}</span>
+            </Link>
+          );
+        })}
       </nav>
     </header>
   );

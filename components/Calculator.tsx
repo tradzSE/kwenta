@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { IconChevronDown, IconDownload, IconPlus, IconShare3, IconTrash } from "@tabler/icons-react";
 import type { UniversityConfig } from "@/data/universities/types";
 import { calculateGwa, type Subject } from "@/lib/calculateGwa";
 import { getAcademicStanding } from "@/lib/getAcademicStanding";
@@ -203,19 +204,20 @@ export default function Calculator({ university }: { university: UniversityConfi
     <>
     <div className="calculator-shell">
       <section className="worksheet" aria-labelledby="subjects-title">
-        <div className="section-heading"><h2 id="subjects-title">Your subjects</h2><button type="button" className="text-button" onClick={reset}>Clear all</button></div>
+        <div className="section-heading"><div><h2 id="subjects-title">Your subjects</h2><p>Enter the grades and units shown on your record.</p></div><button type="button" className="text-button clear-button" onClick={reset}><IconTrash size={17} stroke={1.8} />Clear all</button></div>
         <div className="subject-table">
-          <div className="subject-header" aria-hidden="true"><span>Subject</span><span>Grade</span><span>Units</span><span /></div>
+          <div className="subject-header" aria-hidden="true"><span /><span>Subject</span><span>Grade</span><span>Units</span><span /></div>
           {subjects.map((subject, index) => (
             <div className="subject-row" key={subject.id}>
+              <span className="subject-index" aria-hidden="true">{index + 1}</span>
               <label><span className="mobile-label">Subject</span><input aria-label={`Subject ${index + 1} name`} value={subject.name} onChange={(event) => update(subject.id, "name", event.target.value)} placeholder={`Subject ${index + 1}`} /></label>
-              <label><span className="mobile-label">Grade</span><select aria-label={`Subject ${index + 1} grade`} value={subject.grade} onChange={(event) => update(subject.id, "grade", event.target.value)}><option value="">Select</option>{university.gradeOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
+              <label className="subject-grade"><span className="mobile-label">Grade</span><select aria-label={`Subject ${index + 1} grade`} value={subject.grade} onChange={(event) => update(subject.id, "grade", event.target.value)}><option value="">Select</option>{university.gradeOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select><IconChevronDown className="select-chevron" size={18} stroke={2} aria-hidden="true" /></label>
               <label><span className="mobile-label">Units</span><input aria-label={`Subject ${index + 1} units`} type="number" inputMode="decimal" min="0" step="0.5" value={subject.units} onChange={(event) => update(subject.id, "units", event.target.value)} /></label>
-              <button type="button" className="remove-button" onClick={() => remove(subject.id)} aria-label={`Remove subject ${index + 1}`}>×</button>
+              <button type="button" className="remove-button" onClick={() => remove(subject.id)} aria-label={`Remove subject ${index + 1}`}><IconTrash size={18} stroke={1.8} /></button>
             </div>
           ))}
         </div>
-        <div className="worksheet-actions"><button type="button" className="add-button" onClick={() => setSubjects((current) => [...current, makeSubject()])}>+ Add subject</button><button type="button" className="text-button" onClick={exportCsv}>Export CSV</button></div>
+        <div className="worksheet-actions"><button type="button" className="add-button" onClick={() => setSubjects((current) => [...current, makeSubject()])}><IconPlus size={18} stroke={2} />Add subject</button><button type="button" className="export-button" onClick={exportCsv}><IconDownload size={18} stroke={1.8} />Export CSV</button></div>
       </section>
 
       <aside className="result-card" aria-live="polite">
@@ -224,7 +226,7 @@ export default function Calculator({ university }: { university: UniversityConfi
         {result.blockers.length > 0 && <p>Resolve all incomplete or no-grade marks to calculate your result.</p>}
         {academicStanding && !academicStanding.label && <p>{!academicStanding.meetsUnits ? `At least ${university.scholarshipRules?.minimumUnits} units are required for scholar classification.` : !academicStanding.hasClearGrades ? "A failing or unresolved grade prevents scholar classification." : "No academic distinction for this result."}</p>}
         {result.value !== null && !result.blockers.length && (
-          <button type="button" className="share-button" onClick={shareResult}>Share result</button>
+          <button type="button" className="share-button" onClick={shareResult}><IconShare3 size={17} stroke={1.8} />Share result</button>
         )}
       </aside>
 
