@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import Link from "next/link";
-import HomeSearch from "@/components/HomeSearch";
 import UniversityMark from "@/components/UniversityMark";
 import { universities } from "@/data/universities/registry";
 
@@ -62,8 +61,11 @@ export default function Home() {
         </div>
         <div className="kwenta-hero-content">
           <h1>Calculate your <em>GWA</em></h1>
-          <p className="kwenta-sub">Find your university to use its grading scale and calculation settings. Fast, simple, and made for Filipino students.</p>
-          <HomeSearch />
+          <p className="kwenta-sub">Choose your school, enter your grades, and get a private estimate.</p>
+          <div className="kwenta-hero-actions">
+            <Link className="kwenta-primary-action" href="/universities">Calculate your grades</Link>
+            <Link className="kwenta-secondary-action" href="/custom">Custom calculator</Link>
+          </div>
         </div>
       </section>
     </div>

@@ -487,7 +487,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .clear-button:hover,.export-button:hover{border-color:var(--green);color:var(--green)}
 .subject-table{gap:0;border-top:1px solid var(--line)}
 .subject-header,.subject-row{grid-template-columns:38px minmax(180px,1fr) 180px 92px 44px;gap:10px}
-.subject-header{min-height:44px;padding:0;border:0;border-bottom:1px solid var(--line);align-items:center;text-transform:uppercase;letter-spacing:.08em}
+.subject-header{min-height:44px;padding:0;border:0;border-bottom:1px solid var(--line);align-items:center;color:var(--ink);font-family:var(--sans),Arial,sans-serif;font-size:12px;font-weight:600;line-height:1.35;letter-spacing:-.01em;text-transform:none}
 .subject-header span{padding:0}
 .subject-row{padding:12px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent}
 .subject-index{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#eef1eb;color:var(--muted);font-size:12px;font-weight:700}
@@ -531,7 +531,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
   .subject-index{display:none}
   .subject-row>label:first-of-type{grid-column:1/-1}
   .subject-row label+label{border:0}
-  .mobile-label{display:block;margin:0 0 6px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+  .mobile-label{display:block;margin:0 0 6px;color:var(--ink);font-family:var(--sans),Arial,sans-serif;font-size:12px;font-weight:600;line-height:1.35;letter-spacing:-.01em;text-transform:none}
   .subject-row input,.subject-row select{height:48px;min-height:48px;padding-inline:11px;font-size:16px}
   .remove-button{width:44px;height:48px}
   .worksheet-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -550,6 +550,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .kwenta-hero-content h1 { margin:0; color:#111c14; font-size:clamp(44px,6.4vw,72px); line-height:1; letter-spacing:-.055em; font-weight:800; }
 .kwenta-hero-content h1 em { font-style:normal; color:#14532d; }
 .kwenta-sub { max-width:560px; margin:14px auto 26px; color:#69756d; font-size:16.5px; line-height:1.55; }
+.kwenta-hero-actions { display:flex; align-items:center; justify-content:center; gap:12px; }
+.kwenta-primary-action,.kwenta-secondary-action { min-height:48px; display:inline-flex; align-items:center; justify-content:center; padding:0 20px; border-radius:999px; font-size:14px; font-weight:800; text-decoration:none; transition:transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease; }
+.kwenta-primary-action { border:1px solid #111c14; background:#111c14; color:#fff; box-shadow:0 12px 24px rgb(21 38 27 / .12); }
+.kwenta-secondary-action { border:1px solid #d8ddd2; background:#fff; color:var(--ink); }
+.kwenta-primary-action:hover,.kwenta-secondary-action:hover,.kwenta-primary-action:focus-visible,.kwenta-secondary-action:focus-visible { transform:translateY(-2px); text-decoration:none; }
+.kwenta-primary-action:hover,.kwenta-primary-action:focus-visible { box-shadow:0 16px 30px rgb(21 38 27 / .16); }
+.kwenta-secondary-action:hover,.kwenta-secondary-action:focus-visible { border-color:var(--green); color:var(--green); }
 .kwenta-search { position:relative; width:min(640px,100%); margin:0 auto; text-align:left; }
 .kwenta-search-box { position:relative; display:flex; align-items:center; }
 .kwenta-search-box input { width:100%; min-height:58px; padding:0 104px 0 48px; border:1px solid #e7e5d8; border-radius:16px; background:#fff; color:var(--ink); font-size:15px; box-shadow:0 10px 28px rgb(21 38 27 / .09); }
@@ -598,13 +605,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 /* Kwenta orbit homepage (matches 21st.dev-style reference) */
 .kwenta-home { width:100%; margin:0; padding:0 0 72px; background:var(--paper); }
 @media(max-width:760px){
-  .kwenta-hero { min-height:auto; display:flex; flex-direction:column; padding:44px 16px 30px; }
-  .kwenta-hero-content { display:contents; text-align:center; }
-
-  .kwenta-hero-content h1 { order:2; }
-  .kwenta-sub { order:3; }
-  .kwenta-search { order:4; width:100%; }
-  .kwenta-floater { position:static; width:100%; height:auto; aspect-ratio:1; transform:none; animation:none; }
+  .kwenta-hero { min-height:calc(100svh - 72px); display:grid; place-items:center; padding:86px 18px 78px; overflow:hidden; }
+  .kwenta-hero-content { display:block; width:min(100%,430px); text-align:center; }
+  .kwenta-hero-content h1 { font-size:clamp(46px,16vw,64px); line-height:.98; }
+  .kwenta-sub { max-width:300px; margin:14px auto 22px; font-size:14px; line-height:1.55; }
+  .kwenta-hero-actions { flex-direction:column; gap:10px; }
+  .kwenta-primary-action,.kwenta-secondary-action { width:min(100%,290px); min-height:50px; }
+  .kwenta-floaters { position:absolute; inset:0; display:block; pointer-events:none; }
+  .kwenta-floater { position:absolute; width:64px; height:64px; aspect-ratio:auto; border-radius:16px; transform:rotate(var(--tilt,0deg)); animation:kwenta-float 5.6s ease-in-out infinite alternate; pointer-events:auto; }
+  .kwenta-floater .university-logo { width:44px !important; height:44px !important; }
+  .kwenta-floater-1 { left:7%; top:12%; }
+  .kwenta-floater-2 { left:auto; right:7%; top:14%; }
+  .kwenta-floater-3 { left:8%; right:auto; top:auto; bottom:12%; }
+  .kwenta-floater-4 { right:8%; top:auto; bottom:12%; }
+  .kwenta-floater-5 { left:-18px; top:45%; }
+  .kwenta-floater-6 { right:-18px; top:44%; }
+  .kwenta-floater-7,.kwenta-floater-8,.kwenta-floater-9,.kwenta-floater-10 { display:none; }
   .kwenta-orbit { display:none; }
 }
 @media(prefers-reduced-motion:reduce){ .kwenta-floater { animation:none; } }
