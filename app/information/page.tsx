@@ -26,12 +26,15 @@ export default function InformationPage() {
   return (
     <article className="text-page information-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }} />
-      <header className="information-header">
-        <h1>Information</h1>
-        <p>Methodology, project notes, and privacy.</p>
-      </header>
+      <div className="information-layout">
+        <header className="information-header">
+          <div>
+            <h1>Information</h1>
+            <p>Calculation rules, project details, and privacy in one place.</p>
+          </div>
+        </header>
 
-      <InformationAccordion>
+        <InformationAccordion>
         <details id="methodology" open>
           <summary><IconCalculator className="accordion-icon" size={22} stroke={1.7} aria-hidden="true" /><span><strong>Methodology</strong><small>Calculation and university presets</small></span><IconChevronDown className="accordion-chevron" size={19} stroke={1.7} aria-hidden="true" /></summary>
           <div className="accordion-content">
@@ -62,7 +65,8 @@ export default function InformationPage() {
             <p>You can remove saved information at any time by using Reset or clearing site data in your browser.</p>
           </div>
         </details>
-      </InformationAccordion>
+        </InformationAccordion>
+      </div>
     </article>
   );
 }

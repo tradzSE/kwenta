@@ -29,7 +29,7 @@ export default function UniversityDirectory({ universities }: { universities: Di
       <label className="directory-search">
         <IconSearch size={20} stroke={1.7} aria-hidden="true" />
         <span className="sr-only">Search universities</span>
-        <input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setPage(0); }} placeholder="Search universities" autoComplete="off" />
+        <input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setPage(0); }} placeholder="Search universities…" autoComplete="off" />
         <small>{filtered.length} result{filtered.length === 1 ? "" : "s"}</small>
       </label>
 

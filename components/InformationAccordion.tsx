@@ -13,7 +13,8 @@ export default function InformationAccordion({ children }: { children: ReactNode
       const target = window.location.hash ? container.querySelector<HTMLDetailsElement>(window.location.hash) : null;
       if (!target) return;
       container.querySelectorAll<HTMLDetailsElement>("details").forEach((item) => { item.open = item === target; });
-      window.requestAnimationFrame(() => target.scrollIntoView({ behavior: "smooth", block: "start" }));
+      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+      window.requestAnimationFrame(() => target.scrollIntoView({ behavior, block: "start" }));
     };
     const handleToggle = (event: Event) => {
       const selected = event.target as HTMLDetailsElement;
