@@ -5,7 +5,7 @@ import UniversityMark from "@/components/UniversityMark";
 import { universities } from "@/data/universities/registry";
 
 export const metadata: Metadata = {
-  title: "GWA Calculator Philippines — Free University Grade Calculator",
+  title: "GWA Calculator Philippines | Free University Grade Calculator",
   description: "Calculate your General Weighted Average with Kwenta, a free GWA calculator for Philippine universities. Choose your school, enter grades and units, and get an instant private estimate.",
   keywords: ["GWA calculator", "GWA calculator Philippines", "General Weighted Average calculator", "calculate GWA", "university grade calculator Philippines"],
   alternates: { canonical: "/" },
