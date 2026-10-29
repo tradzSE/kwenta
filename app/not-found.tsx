@@ -30,9 +30,9 @@ export default function NotFound() {
           {popular.map((university) => (
             <li key={university.slug}>
               <Link href={`/${university.slug}`}>
-                <UniversityMark logoSrc={university.logoSrc} shortName={university.shortName} size={40} />
+                <UniversityMark shortName={university.shortName} brandColor={university.brandColors?.primary} size={40} />
                 <span>
-                  <strong>{university.shortName}</strong>
+                  <strong style={{ color: university.brandColors?.primary }}>{university.shortName}</strong>
                   <small>{university.name}</small>
                 </span>
               </Link>
@@ -49,4 +49,3 @@ export default function NotFound() {
     </div>
   );
 }
-

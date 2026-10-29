@@ -10,21 +10,6 @@ const makeId = () => (typeof crypto !== "undefined" && typeof crypto.randomUUID 
 const makeSubject = (): Subject => ({ id: makeId(), name: "", grade: "", units: "3" });
 type SavedTerm = { id: string; name: string; gwa: number; units: number; savedAt: string };
 
-const loadCanvasImage = (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
-  const image = new Image();
-  image.crossOrigin = "anonymous";
-  image.onload = () => resolve(image);
-  image.onerror = reject;
-  image.src = src;
-});
-
-const drawContainedImage = (context: CanvasRenderingContext2D, image: HTMLImageElement, x: number, y: number, width: number, height: number) => {
-  const scale = Math.min(width / image.naturalWidth, height / image.naturalHeight);
-  const renderedWidth = image.naturalWidth * scale;
-  const renderedHeight = image.naturalHeight * scale;
-  context.drawImage(image, x + (width - renderedWidth) / 2, y + (height - renderedHeight) / 2, renderedWidth, renderedHeight);
-};
-
 export default function Calculator({ university }: { university: UniversityConfig }) {
   const storageKey = `gwa-calculator:${university.slug}:subjects`;
   const historyKey = `gwa-calculator:${university.slug}:history`;
@@ -96,25 +81,10 @@ export default function Calculator({ university }: { university: UniversityConfi
     ctx.fillStyle = primary;
     ctx.fillRect(0, 0, 30, size);
 
-    ctx.fillStyle = "#ffffff";
-    ctx.strokeStyle = primary;
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.roundRect(76, 72, 190, 190, 24);
-    ctx.fill();
-    ctx.stroke();
-
-    if (university.logoSrc) {
-      try {
-        const logo = await loadCanvasImage(university.logoSrc);
-        drawContainedImage(ctx, logo, 101, 97, 140, 140);
-      } catch {
-        ctx.fillStyle = primary;
-        ctx.textAlign = "center";
-        ctx.font = "700 44px Arial, sans-serif";
-        ctx.fillText(university.shortName, 171, 185, 145);
-      }
-    }
+    ctx.fillStyle = primary;
+    ctx.textAlign = "center";
+    ctx.font = "700 72px Arial, sans-serif";
+    ctx.fillText(university.shortName.slice(0, 2), 171, 190, 145);
 
     ctx.textAlign = "left";
     ctx.fillStyle = "#15231b";

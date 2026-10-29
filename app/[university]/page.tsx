@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { IconArrowLeft, IconBook2 } from "@tabler/icons-react";
@@ -51,8 +50,7 @@ export default async function UniversityPage({ params }: { params: Promise<{ uni
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
     <section className="calculator-hero">
       <Link className="calculator-back" href="/universities"><IconArrowLeft size={18} stroke={1.8} />Change university</Link>
-      <div className={`calculator-identity${university.logoSrc ? "" : " calculator-identity-no-logo"}`}>
-        {university.logoSrc && <span className="calculator-logo"><Image src={university.logoSrc} alt={`${university.name} logo`} width={92} height={92} priority /></span>}
+      <div className="calculator-identity calculator-identity-no-logo">
         <div><h1>{university.calculatorName}</h1><p>{university.description}</p></div>
       </div>
       {(university.policyYear || university.lastVerified) && (

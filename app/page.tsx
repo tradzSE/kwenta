@@ -55,7 +55,7 @@ export default function Home() {
         <div className="kwenta-floaters" aria-label="Featured universities">
           {orbit.map((university, index) => (
             <Link className={`kwenta-floater kwenta-floater-${index + 1}`} href={`/${university.slug}`} key={university.slug} style={{ "--tilt": tilts[index % tilts.length] } as CSSProperties} aria-label={`Open ${university.name} calculator`} title={university.name}>
-              <UniversityMark logoSrc={university.logoSrc} shortName={university.shortName} size={62} />
+              <UniversityMark shortName={university.shortName} brandColor={university.brandColors?.primary} size={62} />
             </Link>
           ))}
         </div>

@@ -68,9 +68,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .floating-hero-links a { color:var(--green); font-size:12px; font-weight:700; text-underline-offset:3px; }
 .floating-hero-content>small { display:block; margin-top:14px; color:var(--muted); font-size:11px; }
 .floating-universities { position:absolute; inset:0; z-index:1; pointer-events:none; }
-.floating-university { position:absolute; width:92px; height:92px; display:grid; place-items:center; border:1px solid rgb(21 38 27 / .06); border-radius:18px; background:#fff; box-shadow:0 8px 16px rgb(21 38 27 / .08),0 2px 3px rgb(21 38 27 / .06),inset 0 1px #fff; pointer-events:auto; transform:rotate(var(--tilt)); animation:floating-logo-drift var(--float-speed,5.4s) ease-in-out infinite alternate; transition:transform 220ms ease,box-shadow 220ms ease; will-change:translate,transform; }
-.floating-university:hover,.floating-university:focus-visible { z-index:5; transform:translateY(-10px) scale(1.08) rotate(0deg); box-shadow:0 18px 28px rgb(21 38 27 / .15),0 4px 7px rgb(21 38 27 / .08),inset 0 1px #fff; }
-.floating-university .university-logo { width:68px; height:68px; }
+.floating-university { position:absolute; width:92px; height:92px; display:grid; place-items:center; pointer-events:auto; transform:rotate(var(--tilt)); animation:floating-logo-drift var(--float-speed,5.4s) ease-in-out infinite alternate; transition:transform 220ms ease; will-change:translate,transform; }
+.floating-university:hover,.floating-university:focus-visible { z-index:5; transform:translateY(-10px) scale(1.08) rotate(0deg); }
 @keyframes floating-logo-drift { from { translate:0 -5px; } to { translate:0 7px; } }
 .floating-university-1{left:6%;top:12%;--tilt:-4deg;--float-speed:5.2s}.floating-university-2{left:27%;top:5%;--tilt:3deg;--float-speed:6.1s;animation-delay:-1.2s}.floating-university-3{right:28%;top:7%;--tilt:-2deg;--float-speed:4.8s;animation-delay:-2.1s}.floating-university-4{right:7%;top:15%;--tilt:4deg;--float-speed:5.7s;animation-delay:-.7s}.floating-university-5{left:10%;top:43%;--tilt:3deg;--float-speed:6.4s;animation-delay:-2.8s}.floating-university-6{right:9%;top:45%;--tilt:-4deg;--float-speed:5s;animation-delay:-1.8s}.floating-university-7{left:7%;bottom:10%;--tilt:-3deg;--float-speed:5.9s;animation-delay:-3.4s}.floating-university-8{left:29%;bottom:5%;--tilt:2deg;--float-speed:4.6s;animation-delay:-.4s}.floating-university-9{right:29%;bottom:6%;--tilt:-2deg;--float-speed:6.2s;animation-delay:-2.4s}.floating-university-10{right:7%;bottom:12%;--tilt:3deg;--float-speed:5.4s;animation-delay:-1s}
 @media(max-width:760px){
@@ -79,9 +78,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
   .floating-hero-content{display:contents;text-align:center}
   .floating-hero-content h1{order:1;font-size:42px}.floating-hero-content>p{order:2;margin-bottom:20px}.floating-hero-content .school-select{order:3;width:100%}.floating-hero-links{order:4}.floating-hero-content>small{order:5}
   .floating-universities{position:static;order:6;width:100%;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:30px;pointer-events:auto}
-  .floating-university{position:static;width:100%;height:auto;aspect-ratio:1;border-radius:14px;transform:none}
+  .floating-university{position:static;width:100%;height:auto;aspect-ratio:1;transform:none}
   .floating-university:hover,.floating-university:focus-visible{transform:translateY(-4px) scale(1.04)}
-  .floating-university .university-logo{width:42px;height:42px}
 }
 @media(max-width:440px){.floating-universities{grid-template-columns:repeat(4,1fr)}.floating-university-9,.floating-university-10{display:none}}
 @media(prefers-reduced-motion:reduce){.floating-university{animation:none;transition:none}.floating-university:hover,.floating-university:focus-visible{transform:none}}
@@ -92,7 +90,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .logo-track-group { display:flex; align-items:center; gap:42px; padding-right:42px; }
 .logo-track-group>a,.logo-track-copy>span { position:relative; width:82px; height:82px; display:grid; place-items:start center; flex:none; padding-top:4px; background:transparent; }
 .logo-track-group>a { text-decoration:none; }
-.logo-track .university-logo { width:58px; height:58px; transition:transform 140ms ease; }
+.logo-track .university-logo { transition:transform 140ms ease; }
 .logo-track-group>a::after,.logo-track-copy>span::after { content:attr(data-university); position:absolute; left:50%; bottom:0; z-index:2; width:max-content; max-width:190px; padding:3px 6px; transform:translate(-50%,4px); background:var(--green); color:#fff; font-size:10px; font-weight:700; line-height:1.2; text-align:center; opacity:0; pointer-events:none; transition:opacity 120ms ease,transform 120ms ease; }
 .logo-track-group>a:hover .university-logo,.logo-track-group>a:focus-visible .university-logo,.logo-track-copy>span:hover .university-logo { transform:translateY(-3px) scale(1.08); }
 .logo-track-group>a:hover::after,.logo-track-group>a:focus-visible::after,.logo-track-copy>span:hover::after { transform:translate(-50%,0); opacity:1; }
@@ -103,7 +101,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
   .logo-track { animation-duration:20s; }
   .logo-track-group { gap:28px; padding-right:28px; }
   .logo-track-group>a,.logo-track-copy>span { width:58px; height:58px; }
-  .logo-track .university-logo { width:50px; height:50px; }
 }
 @media(prefers-reduced-motion:reduce){
   .logo-marquee { overflow:visible; mask-image:none; }
@@ -214,7 +211,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .university-picker-grid a { min-height:108px; display:flex; align-items:center; flex-direction:column; justify-content:flex-start; gap:5px; padding:9px 6px 8px; border:0; color:var(--ink); text-align:center; text-decoration:none; transition:background 140ms ease,transform 140ms ease; }
 .university-picker-grid a:hover,.university-picker-grid a:focus-visible { background:#ebece5; transform:translateY(-2px); }
 .university-picker-mark { width:58px; height:58px; display:grid; place-items:center; }
-.university-picker-mark .university-logo { width:52px; height:52px; }
 .university-picker-grid strong { font-size:13px; font-weight:720; line-height:1.15; letter-spacing:-.015em; }
 .university-picker-grid small { max-width:145px; display:-webkit-box; overflow:hidden; color:var(--muted); font-size:10.5px; line-height:1.25; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
 .directory-empty { margin-top:34px; padding:36px 20px; border-block:1px solid var(--line); text-align:center; }
@@ -344,8 +340,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 }
 
 /* University marks and image-capable picker */
-.university-logo { width:44px;height:44px;flex:none;object-fit:contain; }
-.university-logo-fallback { display:grid;place-items:center;border:1px solid var(--line);color:var(--muted);background:#fff;font-size:11px;font-weight:700; }
+.university-logo { flex:none; }
+.university-logo-fallback { display:grid;place-items:center;color:var(--green);font-weight:700;line-height:1; }
 .school-select label { display:block;font-size:14px;font-weight:700;color:var(--ink); }
 .school-search { position:relative; }
 .school-search-box { position:relative;display:flex;align-items:center; }
@@ -361,7 +357,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .school-search-dropdown li a { min-height:58px;display:flex;align-items:center;gap:12px;padding:8px 12px;border-bottom:1px solid var(--line);text-decoration:none; }
 .school-search-dropdown li:last-child a { border-bottom:0; }
 .school-search-dropdown li a:hover,.school-search-dropdown li a.is-highlighted { background:#f0f2ec; }
-.school-search-dropdown .university-logo { width:38px;height:38px; }
 .school-search-dropdown li a>span { display:grid;gap:2px; }
 .school-search-dropdown li strong { font-size:14px; }
 .school-search-dropdown li small { color:var(--muted);font-size:12px;line-height:1.25; }
@@ -473,11 +468,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .calculator-back:hover,.calculator-back:focus-visible{color:var(--green);background:#eef1eb;text-decoration:none}
 .calculator-back:hover svg,.calculator-back:focus-visible svg{transform:translateX(-3px)}
 .calculator-back:active{transform:translateY(1px)}
-.calculator-identity{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:22px}
+.calculator-identity{display:grid;grid-template-columns:minmax(0,1fr);align-items:center}
 .calculator-identity-no-logo{grid-template-columns:minmax(0,1fr)}
-.calculator-logo{width:96px;height:96px;display:grid;place-items:center;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 10px 24px rgb(21 38 27 / .08)}
-.calculator-logo img{width:76px;height:76px;object-fit:contain}
-.calculator-identity h1{font-size:clamp(30px,5vw,48px)}
+.calculator-identity h1{color:var(--green);font-size:clamp(30px,5vw,48px)}
 .calculator-identity p{max-width:620px;margin:8px 0 0;color:var(--muted);font-size:15px;line-height:1.55}
 .verification-line{min-height:52px;margin:24px 0 0;padding:0 16px;border-radius:12px;background:#f0f2ec}
 .verification-line span{flex:1}
@@ -518,9 +511,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 @media(max-width:640px){
   .calculator-hero{margin:18px 12px 12px;padding:18px;border-radius:14px}
   .calculator-back{margin-bottom:18px}
-  .calculator-identity{grid-template-columns:64px minmax(0,1fr);gap:14px}
-  .calculator-logo{width:64px;height:64px;border-radius:12px}
-  .calculator-logo img{width:50px;height:50px}
   .calculator-identity h1{font-size:27px}
   .calculator-identity p{font-size:13px}
   .verification-line{align-items:flex-start;padding:12px;font-size:11px;line-height:1.45}
@@ -543,8 +533,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
   .result-card{border-radius:14px}
 }
 @media(max-width:390px){
-  .calculator-identity{grid-template-columns:52px minmax(0,1fr)}
-  .calculator-logo{width:52px;height:52px}.calculator-logo img{width:42px;height:42px}
 }
 
 /* Kwenta orbit homepage */
@@ -589,19 +577,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .kwenta-sparkle-3 { left:7%; top:52%; } .kwenta-sparkle-4 { right:7%; top:53%; }
 .kwenta-sparkle-5 { left:25%; bottom:23%; }
 .kwenta-floaters { position:absolute; inset:0; z-index:2; pointer-events:none; }
-.kwenta-floater { position:absolute; width:86px; height:86px; display:grid; place-items:center; border:1px solid rgba(21,38,27,.07); border-radius:20px; background:#fff; box-shadow:0 14px 28px rgb(21 38 27 / .1); pointer-events:auto; transform:rotate(var(--tilt,0deg)); animation:kwenta-float 5.6s ease-in-out infinite alternate; transition:transform 200ms ease; }
+.kwenta-floater { position:absolute; width:86px; height:86px; display:grid; place-items:center; background:transparent; pointer-events:auto; transform:rotate(var(--tilt,0deg)); animation:kwenta-float 5.6s ease-in-out infinite alternate; transition:transform 200ms ease; }
 .kwenta-floater:hover { transform:translateY(-6px) rotate(0deg) scale(1.05); }
-.kwenta-floater .university-logo { width:62px !important; height:62px !important; }
 @keyframes kwenta-float { from { translate:0 -6px; } to { translate:0 7px; } }
 .kwenta-floater-1 { left:5%; top:12%; } .kwenta-floater-2 { left:21%; top:7%; }
 .kwenta-floater-3 { right:30%; top:6%; } .kwenta-floater-4 { right:8%; top:10%; }
 .kwenta-floater-5 { left:8%; top:46%; } .kwenta-floater-6 { right:6%; top:43%; }
 .kwenta-floater-7 { left:4%; bottom:9%; } .kwenta-floater-8 { left:22%; bottom:7%; width:72px; height:72px; }
 .kwenta-floater-9 { right:22%; bottom:6%; } .kwenta-floater-10 { right:5%; bottom:10%; }
-.kwenta-floater-8 .university-logo { width:50px !important; height:50px !important; }
 @media(max-width:900px){
-  .kwenta-floater { width:68px; height:68px; border-radius:16px; }
-  .kwenta-floater .university-logo { width:48px !important; height:48px !important; }
+  .kwenta-floater { width:68px; height:68px; }
   .kwenta-floater-2 { left:15%; } .kwenta-floater-3 { right:24%; }
   .kwenta-floater-5 { left:4%; } .kwenta-floater-6 { right:3%; }
 }
@@ -616,8 +601,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
   .kwenta-hero-actions { flex-direction:column; gap:10px; }
   .kwenta-primary-action,.kwenta-secondary-action { width:min(100%,290px); min-height:50px; }
   .kwenta-floaters { position:absolute; inset:0; display:block; pointer-events:none; }
-  .kwenta-floater { position:absolute; width:64px; height:64px; aspect-ratio:auto; border-radius:16px; transform:rotate(var(--tilt,0deg)); animation:kwenta-float 5.6s ease-in-out infinite alternate; pointer-events:auto; }
-  .kwenta-floater .university-logo { width:44px !important; height:44px !important; }
+  .kwenta-floater { position:absolute; width:64px; height:64px; aspect-ratio:auto; transform:rotate(var(--tilt,0deg)); animation:kwenta-float 5.6s ease-in-out infinite alternate; pointer-events:auto; }
   .kwenta-floater-1 { left:7%; top:12%; }
   .kwenta-floater-2 { left:auto; right:7%; top:14%; }
   .kwenta-floater-3 { left:8%; right:auto; top:auto; bottom:12%; }

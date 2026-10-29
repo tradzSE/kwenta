@@ -16,7 +16,7 @@ export default function UniversitiesPage() {
   return (
     <section className="text-page universities-page">
       <header className="directory-header"><div><h1>Choose your university</h1><p>Select a school to open its calculator.</p></div><span>{supported.length - 1} supported</span></header>
-      <UniversityDirectory universities={supported.map(({ slug, name, shortName, logoSrc }) => ({ slug, name, shortName, logoSrc }))} />
+      <UniversityDirectory universities={supported.map(({ slug, name, shortName, brandColors }) => ({ slug, name, shortName, brandColor: brandColors?.primary }))} />
     </section>
   );
 }

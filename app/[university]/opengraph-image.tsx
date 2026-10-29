@@ -13,15 +13,6 @@ export default async function UniversityOpenGraphImage({
   const { university: slug } = await params;
   const university = universityRegistry[slug] ?? universityRegistry.custom;
   const primary = university.brandColors?.primary ?? "#145c3b";
-  const secondary = university.brandColors?.secondary ?? "#dce8cf";
-  const ogLogoPath = university.logoSrc ?? "/web-logo.png";
-  const deploymentHost = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
-  const assetOrigin = deploymentHost ? `https://${deploymentHost}` : "http://localhost:3000";
-  const logoSrc = new URL(
-    ogLogoPath,
-    assetOrigin,
-  ).toString();
-
   return new ImageResponse(
     <div
       style={{
@@ -85,20 +76,17 @@ export default async function UniversityOpenGraphImage({
 
           <div
             style={{
-              width: "250px",
-              height: "250px",
+              width: "150px",
+              height: "150px",
               flexShrink: 0,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              border: `3px solid ${primary}`,
-              background: secondary === "#FFFFFF" ? "#ffffff" : `${secondary}33`,
-              borderRadius: "28px",
-              padding: "30px",
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logoSrc} alt="" style={{ width: "190px", height: "190px", objectFit: "contain" }} />
+            <span style={{ color: primary, fontSize: "76px", fontWeight: 700 }}>
+              {university.shortName.slice(0, 2)}
+            </span>
           </div>
         </div>
 

@@ -59,7 +59,7 @@ A configured `minimumUnits` of `0` does not enforce a minimum in the current hel
 3. Give every grade a unique `value` and set `behavior` deliberately to `include`, `exclude`, or `block`. An included option needs a numeric value.
 4. Set `passingGrade` only when the configured numeric scale supports the pass/fail comparison. Set `roundingDecimals` for presentation.
 5. Add a trustworthy official `sourceUrl`, applicable `policyYear`, and `lastVerified` date when the preset is based on a published policy. Recheck sources periodically; a verification date is not a promise of future accuracy.
-6. Add optional brand colors and a logo under `public/universities` if supplied.
+6. Add optional brand colors. Keep any supplied logo asset and `logoSrc` out of visible UI until permission to use it is confirmed; logos are currently hidden throughout the app and generated images.
 7. Import the config in `data/universities/registry.ts` and add it to `universities`. This registry drives calculator route generation, lookup, and directory entries.
 8. Add or update tests, then update this catalog with the route, source/version metadata, grading details, and any standing rules.
 

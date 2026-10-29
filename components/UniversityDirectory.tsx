@@ -9,7 +9,7 @@ type DirectoryUniversity = {
   slug: string;
   name: string;
   shortName: string;
-  logoSrc?: string;
+  brandColor?: string;
 };
 
 export default function UniversityDirectory({ universities }: { universities: DirectoryUniversity[] }) {
@@ -39,9 +39,9 @@ export default function UniversityDirectory({ universities }: { universities: Di
             <li key={university.slug}>
               <Link href={`/${university.slug}`} title={university.name}>
                 <span className="university-picker-mark">
-                  {university.slug === "custom" ? <IconCalculator size={52} stroke={1.35} aria-hidden="true" /> : <UniversityMark logoSrc={university.logoSrc} shortName={university.shortName} size={64} />}
+                  {university.slug === "custom" ? <IconCalculator size={52} stroke={1.35} aria-hidden="true" /> : <UniversityMark shortName={university.shortName} brandColor={university.brandColor} size={64} />}
                 </span>
-                <strong>{university.shortName}</strong>
+                <strong style={{ color: university.brandColor }}>{university.shortName}</strong>
                 <small>{university.name}</small>
               </Link>
             </li>

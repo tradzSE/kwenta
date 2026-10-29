@@ -131,12 +131,12 @@ export default function SchoolSelector() {
                       onClick={() => setOpen(false)}
                     >
                       <UniversityMark
-                        logoSrc={university.logoSrc}
                         shortName={university.shortName}
+                        brandColor={university.brandColors?.primary}
                         size={38}
                       />
                       <span>
-                        <strong>{university.shortName}</strong>
+                        <strong style={{ color: university.brandColors?.primary }}>{university.shortName}</strong>
                         <small>{university.name}</small>
                       </span>
                     </Link>

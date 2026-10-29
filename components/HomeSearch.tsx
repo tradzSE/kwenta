@@ -120,9 +120,9 @@ export default function HomeSearch() {
                     onFocus={() => setHighlight(i)}
                     onClick={() => setOpen(false)}
                   >
-                    <UniversityMark logoSrc={u.logoSrc} shortName={u.shortName} size={36} />
+                    <UniversityMark shortName={u.shortName} brandColor={u.brandColors?.primary} size={36} />
                     <span>
-                      <strong>{u.shortName}</strong>
+                      <strong style={{ color: u.brandColors?.primary }}>{u.shortName}</strong>
                       <small>{u.name}</small>
                     </span>
                   </Link>

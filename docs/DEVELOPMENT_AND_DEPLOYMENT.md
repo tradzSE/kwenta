@@ -41,7 +41,7 @@ Tests currently cover weighted arithmetic, excluded and blocking grades, invalid
 
 - University grading and policy metadata: `data/universities/<slug>.ts`.
 - Registry and static route list: `data/universities/registry.ts`.
-- University logos: `public/universities/`; each configured `logoSrc` is a public URL path such as `/universities/clsu.png`.
+- University logo files and preset `logoSrc` values are retained, but university logos are currently hidden in the app, calculator exports, and social preview images pending permission review. The files remain directly accessible from their public asset URLs.
 - TypeScript strictness and `@/*` path alias: `tsconfig.json`.
 - Vitest root and alias: `vitest.config.ts`.
 - ESLint: `eslint.config.mjs`.
