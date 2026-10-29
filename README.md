@@ -25,6 +25,10 @@ University presets live in `data/universities`. Each preset defines its grade sc
 
 Academic-standing results are estimates only. Students should confirm eligibility and official calculations with their university.
 
+## Documentation
+
+The project documentation is organized in [`docs/README.md`](./docs/README.md). It covers the user workflow, calculation rules, university presets, architecture, development and deployment, and privacy and limitations.
+
 ## Deployment
 
 The production domain is `https://kwenta.ranierteraldico.me`. The app includes metadata, Open Graph tags, a sitemap, robots rules, a web app manifest, security headers, and cache policies for static brand assets.
