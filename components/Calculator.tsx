@@ -154,7 +154,7 @@ export default function Calculator({ university }: { university: UniversityConfi
       ctx.stroke();
       ctx.fillStyle = primary;
       ctx.font = "700 26px Arial, sans-serif";
-      ctx.fillText("ACADEMIC STANDING", 110, 797);
+      ctx.fillText(academicStanding.meetsUnits ? "ACADEMIC STANDING" : "ACADEMIC STANDING (QUALIFYING GWA)", 110, 797);
       ctx.fillStyle = "#15231b";
       ctx.font = "700 42px Arial, sans-serif";
       ctx.fillText(academicStanding.label, 110, 850, 850);
@@ -222,9 +222,21 @@ export default function Calculator({ university }: { university: UniversityConfi
 
       <aside className="result-card" aria-live="polite">
         <div className="result-value"><span>Estimated {university.resultLabel}</span><strong>{result.blockers.length ? "Pending" : result.value === null ? "—" : result.value.toFixed(university.roundingDecimals)}</strong><small>{result.includedUnits || 0} included units</small></div>
-        {academicStanding?.label && <div className="result-standing"><span>Standing</span><strong>{academicStanding.label}</strong><small>{university.scholarshipRules?.eligibilityNote ?? "Based on the grades and units entered"}</small></div>}
+        {academicStanding?.label && (
+          <div className="result-standing">
+            <span>Standing {!academicStanding.meetsUnits ? "(Qualifying GWA)" : ""}</span>
+            <strong>{academicStanding.label}</strong>
+            <small>{academicStanding.note}</small>
+          </div>
+        )}
         {result.blockers.length > 0 && <p>Resolve all incomplete or no-grade marks to calculate your result.</p>}
-        {academicStanding && !academicStanding.label && <p>{!academicStanding.meetsUnits ? `At least ${university.scholarshipRules?.minimumUnits} units are required for scholar classification.` : !academicStanding.hasClearGrades ? "A failing or unresolved grade prevents scholar classification." : "No academic distinction for this result."}</p>}
+        {academicStanding && !academicStanding.label && (
+          <p>
+            {!academicStanding.hasClearGrades
+              ? "A failing or unresolved grade prevents scholar classification."
+              : "No academic distinction for this result."}
+          </p>
+        )}
         {result.value !== null && !result.blockers.length && (
           <button type="button" className="share-button" onClick={shareResult}><IconShare3 size={17} stroke={1.8} />Share result</button>
         )}

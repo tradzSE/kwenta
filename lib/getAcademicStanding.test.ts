@@ -10,16 +10,19 @@ describe("getAcademicStanding", () => {
   it("classifies lower-is-better university thresholds", () => {
     const standing = getAcademicStanding(calculateGwa(subjects("1.5"), clsu), clsu);
     expect(standing?.label).toBe("University Scholar");
+    expect(standing?.meetsUnits).toBe(true);
   });
 
   it("classifies lower-is-better college thresholds", () => {
     const standing = getAcademicStanding(calculateGwa(subjects("1.75"), clsu), clsu);
     expect(standing?.label).toBe("College Scholar");
+    expect(standing?.meetsUnits).toBe(true);
   });
 
-  it("requires the configured minimum units", () => {
+  it("shows qualifying standing when units are under the configured minimum", () => {
     const standing = getAcademicStanding(calculateGwa(subjects("1.25", 4), clsu), clsu);
-    expect(standing).toMatchObject({ label: null, meetsUnits: false });
+    expect(standing).toMatchObject({ label: "University Scholar", meetsUnits: false });
+    expect(standing?.note).toContain("Qualifying GWA (12/15 units)");
   });
 
   it("rejects classification when a blocking grade exists", () => {

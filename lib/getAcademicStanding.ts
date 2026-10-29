@@ -18,12 +18,11 @@ export function getAcademicStanding(result: CalculationResult, university: Unive
     && !result.hasFailingGrade
     && !exceedsMaximumGrade
     && !fallsBelowMinimumGrade;
-  const eligible = meetsUnits && hasClearGrades;
   const qualifies = (threshold: number) => university.gradeDirection === "lower-is-better"
     ? result.value! <= threshold
     : result.value! >= threshold;
 
-  const label = !eligible
+  const label = !hasClearGrades
     ? null
     : qualifies(rules.universityMax)
       ? rules.universityLabel ?? "University Scholar"
@@ -33,5 +32,11 @@ export function getAcademicStanding(result: CalculationResult, university: Unive
           ? rules.deansListLabel ?? "Dean's Lister"
           : null;
 
-  return { label, meetsUnits, hasClearGrades };
+  const note = !label
+    ? undefined
+    : !meetsUnits && rules.minimumUnits > 0
+      ? `Qualifying GWA (${result.includedUnits}/${rules.minimumUnits} units) · Official honor rolls typically require at least ${rules.minimumUnits} units`
+      : rules.eligibilityNote ?? "Based on the grades and units entered";
+
+  return { label, meetsUnits, hasClearGrades, note };
 }
