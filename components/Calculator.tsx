@@ -140,27 +140,26 @@ export default function Calculator({ university }: { university: UniversityConfi
     ctx.fillStyle = "#15261b";
     ctx.font = "700 220px Arial, sans-serif";
     ctx.fillText(gwa, 68, 610);
-    ctx.fillStyle = "#5e6c62";
-    ctx.font = "36px Arial, sans-serif";
-    ctx.fillText(`${result.includedUnits} included units`, 82, 682);
 
-    if (academicStanding?.label) {
+    const hasStanding = Boolean(academicStanding?.label);
+    if (hasStanding && academicStanding?.label) {
+      const standingY = 694;
       ctx.fillStyle = secondary === "#FFFFFF" ? "#eef2ec" : `${secondary}55`;
       ctx.strokeStyle = primary;
       ctx.lineWidth = 3;
       ctx.beginPath();
-      ctx.roundRect(76, 746, 928, 134, 18);
+      ctx.roundRect(76, standingY, 928, 134, 18);
       ctx.fill();
       ctx.stroke();
       ctx.fillStyle = primary;
       ctx.font = "700 26px Arial, sans-serif";
-      ctx.fillText(academicStanding.meetsUnits ? "ACADEMIC STANDING" : "ACADEMIC STANDING (QUALIFYING GWA)", 110, 797);
+      ctx.fillText(academicStanding.meetsUnits ? "ACADEMIC STANDING" : "ACADEMIC STANDING (QUALIFYING GWA)", 110, standingY + 51);
       ctx.fillStyle = "#15231b";
       ctx.font = "700 42px Arial, sans-serif";
-      ctx.fillText(academicStanding.label, 110, 850, 850);
+      ctx.fillText(academicStanding.label, 110, standingY + 104, 850);
     }
 
-    const footerY = academicStanding?.label ? 962 : 850;
+    const footerY = hasStanding ? 950 : 860;
     ctx.strokeStyle = "#cbd3c9";
     ctx.beginPath();
     ctx.moveTo(76, footerY - 52);
@@ -176,17 +175,13 @@ export default function Calculator({ university }: { university: UniversityConfi
     const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
     if (!blob) return;
     const file = new File([blob], `kwenta-${university.slug}-${gwa}.png`, { type: "image/png" });
-    if (navigator.canShare?.({ files: [file] })) {
-      try {
-        await navigator.share({ files: [file], title: `My estimated GWA: ${gwa}` });
-        return;
-      } catch { /* user cancelled — fall through to download */ }
-    }
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = file.name;
+    document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(link.href);
+    document.body.removeChild(link);
+    window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
   };
   const exportCsv = () => {
     const rows = [["Subject", "Grade", "Units"], ...subjects.filter((subject) => subject.grade).map((subject) => [subject.name, subject.grade, subject.units]), ["Estimated GWA", result.value?.toFixed(university.roundingDecimals) ?? "Pending", String(result.includedUnits)]];
@@ -238,7 +233,7 @@ export default function Calculator({ university }: { university: UniversityConfi
           </p>
         )}
         {result.value !== null && !result.blockers.length && (
-          <button type="button" className="share-button" onClick={shareResult}><IconShare3 size={17} stroke={1.8} />Share result</button>
+          <button type="button" className="share-button" onClick={shareResult}><IconDownload size={17} stroke={1.8} />Download result</button>
         )}
       </aside>
 
