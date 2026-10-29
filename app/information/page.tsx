@@ -63,6 +63,8 @@ export default function InformationPage() {
             <h2>Your grades stay on your device</h2>
             <p>Kwenta does not require an account and does not send subject names, grades, or units to a server. Saved calculator data uses your browser&apos;s local storage.</p>
             <p>You can remove saved information at any time by using Reset or clearing site data in your browser.</p>
+            <h2>Visitor metrics</h2>
+            <p>We use cookieless, privacy-preserving metrics (Vercel Web Analytics) to understand aggregate site traffic such as total visits, country, and device type without tracking individual users or collecting personal data.</p>
           </div>
         </details>
         </InformationAccordion>
